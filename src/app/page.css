@@ -1,0 +1,60 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 98vh;
+}
+.card {
+  width: 30rem;
+
+  & > .ant-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background: linear-gradient(
+        90deg,
+        rgba(39, 100, 255, 0.15) -18.52%,
+        rgba(255, 255, 255, 0) 101.17%
+      ),
+      #f8f8ff;
+    border-radius: 8px !important;
+  }
+}
+
+.ant-input-affix-wrapper {
+  background: transparent !important;
+  & > input {
+    background-color: transparent !important;
+  }
+}
+.title {
+  font-weight: bold;
+}
+.footerLogin {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.rowContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+.row {
+  width: 200px;
+  height: 1px;
+  background: #7e7e7e;
+}
+.iconsFooter {
+  display: flex;
+  gap: 1.5rem;
+}
+.icon {
+  cursor: pointer;
+  color: #838383 !important;
+  font-size: 20px;
+}
