@@ -1,8 +1,9 @@
 .container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 98vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Duas colunas de largura igual */
+  grid-gap: 20px; /* Espaço entre as colunas */
+  max-width: 960px; /* Largura máxima do contêiner */
+  margin: 0 auto; /* Centraliza o contêiner na página */
 }
 .card {
   width: 30rem;

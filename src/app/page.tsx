@@ -9,12 +9,22 @@ import {
 } from "@ant-design/icons";
 
 export default function Home() {
-  const { Text } = Typography;
+  const { Text, Paragraph, Title } = Typography;
 
   return (
     <Row className="container">
       <div>
-        <Text></Text>
+        <Title>RESERVA.ME</Title>
+        <Paragraph>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum,
+          provident iusto reprehenderit a consequuntur ut. Qui consectetur
+          delectus nam enim magni officiis accusantium a dolore atque? Eos
+          dolore doloribus nesciunt.
+        </Paragraph>
+        <Text>
+          Sagittis, elementum pharetra, pharetra posuere pellentesque aliquet.
+          Ipsum vitae at non, tempor feugiat.
+        </Text>
       </div>
       <Card className="card">
         <Text className="title"> Faça login na plataforma </Text>
