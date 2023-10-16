@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Marmelad } from "next/font/google";
 import { RootStyleRegistry } from "./root-style-registry";
 
-const inter = Inter({ subsets: ["latin"] });
+const marmelad = Marmelad({
+  style: "normal",
+  subsets: ["latin"],
+  weight: ["400"],
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",

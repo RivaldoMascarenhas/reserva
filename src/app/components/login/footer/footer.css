@@ -1,0 +1,23 @@
+.footerLogin {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.rowContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+.row {
+  width: 200px;
+  height: 1px;
+  background: #7e7e7e;
+}
+.iconsFooter {
+  display: flex;
+  gap: 1.5rem;
+}

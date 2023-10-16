@@ -14,38 +14,39 @@ export function FormLogin() {
     >
       <Form.Item
         name="username"
-        rules={[{ required: true, message: "Please input your Username!" }]}
+        rules={[
+          { required: true, message: "Por favor insira seu nome de usuário!" },
+        ]}
       >
         <Input
           prefix={<UserOutlined className="site-form-item-icon" />}
-          placeholder="Usuário"
+          placeholder="Insina seu nome de usuário"
         />
       </Form.Item>
       <Form.Item
         name="password"
-        rules={[{ required: true, message: "Please input your Password!" }]}
+        rules={[{ required: true, message: "Por favor insira sua senha!" }]}
       >
         <Input
           prefix={<LockOutlined className="site-form-item-icon" />}
           type="password"
-          placeholder="Senha"
+          placeholder="Insira sua senha!"
         />
       </Form.Item>
       <Form.Item>
         <Form.Item name="remember" valuePropName="checked" noStyle>
-          <Checkbox>Lembrar-me</Checkbox>
+          <Checkbox>Manter-me conectado</Checkbox>
         </Form.Item>
 
         <a className="login-form-forgot" href="">
           Recuperar senha
         </a>
       </Form.Item>
-
       <Form.Item>
         <Button type="primary" htmlType="submit" className="login-form-button">
           Entrar
         </Button>{" "}
-        Ou <a href="">Registrar Agora!</a>
+        Ou <a href="">Cadastra-se agora!!</a>
       </Form.Item>
     </Form>
   );
