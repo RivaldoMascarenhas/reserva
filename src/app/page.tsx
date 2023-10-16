@@ -1,5 +1,5 @@
 "use client";
-import { Card, Row, Typography } from "antd";
+import { Card, Typography } from "antd";
 import { FormLogin } from "./components/login/formLogin";
 import "./page.css";
 import {
@@ -12,7 +12,7 @@ export default function Home() {
   const { Text, Paragraph, Title } = Typography;
 
   return (
-    <Row className="container">
+    <div className="container">
       <div>
         <Title>RESERVA.ME</Title>
         <Paragraph>
@@ -26,7 +26,7 @@ export default function Home() {
           Ipsum vitae at non, tempor feugiat.
         </Text>
       </div>
-      <Card className="card">
+      <Card style={{ width: "30rem" }}>
         <Text className="title"> Faça login na plataforma </Text>
         <FormLogin />
         <div className="footerLogin">
@@ -42,6 +42,6 @@ export default function Home() {
           </div>
         </div>
       </Card>
-    </Row>
+    </div>
   );
 }
