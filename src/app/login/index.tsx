@@ -1,11 +1,11 @@
 "use client";
 import Image from "next/image";
 import { Card, Typography } from "antd";
-import { Footer } from "./footer/footerLogin";
-import { FormLogin } from "./form/formLogin";
 import imgLogin from "public/imgLogin.svg";
 import "./style.css";
-import { Title } from "../title";
+import { Title } from "../components/title/title";
+import { FormLogin } from "../components/form/formLogin";
+import { Footer } from "../components/footer/footerLogin";
 
 export default function Login() {
   const { Text, Paragraph } = Typography;
