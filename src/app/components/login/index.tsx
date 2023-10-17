@@ -30,11 +30,9 @@ export default function Login() {
         <Image src={imgLogin} width={720} height={430} alt="" />
       </div>
       <Card style={{ width: "30rem", border: "none", marginTop: "5rem" }}>
-        {register === false && <strong> Faça login na plataforma </strong>}
-        {register === false && <FormLogin setRegister={setRegister} />}
-        {register && <FormRegister />}
-        {register === false && <Footer />}
+        <FormLogin setRegister={setRegister} />
       </Card>
+      <FormRegister />
     </div>
   );
 }
