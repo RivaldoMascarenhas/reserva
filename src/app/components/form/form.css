@@ -1,0 +1,6 @@
+.registerLink {
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  color: #1976d2;
+}

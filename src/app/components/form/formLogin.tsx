@@ -1,10 +1,17 @@
 import { Button, Checkbox, Form, Input } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import "./form.css";
+import { Dispatch, SetStateAction } from "react";
 
-export function FormLogin() {
+interface FormLoginProps {
+  setRegister: Dispatch<SetStateAction<boolean>>;
+}
+
+export function FormLogin({ setRegister }: FormLoginProps) {
   const onFinish = (values: any) => {
     console.log("Received values of form: ", values);
   };
+
   return (
     <Form
       name="normal_login"
@@ -15,7 +22,10 @@ export function FormLogin() {
       <Form.Item
         name="username"
         rules={[
-          { required: true, message: "Por favor insira seu nome de usuário!" },
+          {
+            required: true,
+            message: "Por favor insira seu nome de usuário!",
+          },
         ]}
       >
         <Input
@@ -46,7 +56,13 @@ export function FormLogin() {
         <Button type="primary" htmlType="submit" className="login-form-button">
           Entrar
         </Button>{" "}
-        Ou <a href="">Cadastra-se agora!!</a>
+        Ou{" "}
+        <i
+          onClick={() => setRegister((state) => !state)}
+          className="registerLink"
+        >
+          Cadastra-se agora!!
+        </i>
       </Form.Item>
     </Form>
   );

@@ -3,12 +3,15 @@ import Image from "next/image";
 import { Card, Typography } from "antd";
 import imgLogin from "public/imgLogin.svg";
 import "./style.css";
-import { Title } from "../components/title/title";
-import { FormLogin } from "../components/form/formLogin";
-import { Footer } from "../components/footer/footerLogin";
+import { Title } from "../title/title";
+import { FormLogin } from "../form/formLogin";
+import { Footer } from "../footer/footerLogin";
+import { useState } from "react";
+import { FormRegister } from "../form/formRegister";
 
 export default function Login() {
   const { Text, Paragraph } = Typography;
+  const [register, setRegister] = useState(false);
 
   return (
     <div className="container">
@@ -27,9 +30,10 @@ export default function Login() {
         <Image src={imgLogin} width={720} height={430} alt="" />
       </div>
       <Card style={{ width: "30rem", border: "none", marginTop: "5rem" }}>
-        <strong> Faça login na plataforma </strong>
-        <FormLogin />
-        <Footer />
+        {register === false && <strong> Faça login na plataforma </strong>}
+        {register === false && <FormLogin setRegister={setRegister} />}
+        {register && <FormRegister />}
+        {register === false && <Footer />}
       </Card>
     </div>
   );
