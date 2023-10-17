@@ -64,12 +64,12 @@ export function FormLogin({ setRegister }: FormLoginProps) {
             Entrar
           </Button>{" "}
           Ou{" "}
-          <i
+          <span
             onClick={() => setRegister((state) => !state)}
             className="registerLink"
           >
             Cadastra-se agora!!
-          </i>
+          </span>
         </Form.Item>
       </Form>
       <Footer />

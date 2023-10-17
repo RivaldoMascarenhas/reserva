@@ -2,12 +2,12 @@
 import Image from "next/image";
 import { Card, Typography } from "antd";
 import imgLogin from "public/imgLogin.svg";
+import imgRegister from "public/imgRegister.svg";
 import "./style.css";
-import { Title } from "../title/title";
-import { FormLogin } from "../form/formLogin";
-import { Footer } from "../footer/footerLogin";
+import { FormLogin } from "./components/form/formLogin";
 import { useState } from "react";
-import { FormRegister } from "../form/formRegister";
+import { FormRegister } from "./components/form/formRegister";
+import { Title } from "./components/title/title";
 
 export default function Login() {
   const { Text, Paragraph } = Typography;
@@ -27,12 +27,17 @@ export default function Login() {
           Sagittis, elementum pharetra, pharetra posuere pellentesque aliquet.
           Ipsum vitae at non, tempor feugiat.
         </Text>
-        <Image src={imgLogin} width={720} height={430} alt="" />
+        {register === true && (
+          <Image src={imgRegister} width={720} height={430} alt="" />
+        )}
+        {register === false && (
+          <Image src={imgLogin} width={720} height={430} alt="" />
+        )}
       </div>
       <Card style={{ width: "30rem", border: "none", marginTop: "5rem" }}>
-        <FormLogin setRegister={setRegister} />
+        {register === false && <FormLogin setRegister={setRegister} />}
+        {register === true && <FormRegister setRegister={setRegister} />}
       </Card>
-      <FormRegister />
     </div>
   );
 }
