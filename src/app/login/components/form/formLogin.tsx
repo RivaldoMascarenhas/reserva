@@ -1,14 +1,11 @@
+"use client";
 import { Button, Checkbox, Form, Input } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import "./form.css";
-import { Dispatch, SetStateAction } from "react";
 import { Footer } from "../footer/footerLogin";
+import "./form.css";
+import Link from "next/link";
 
-interface FormLoginProps {
-  setRegister: Dispatch<SetStateAction<boolean>>;
-}
-
-export function FormLogin({ setRegister }: FormLoginProps) {
+export default function FormLogin() {
   const onFinish = (values: any) => {
     console.log("Received values of form: ", values);
   };
@@ -16,6 +13,7 @@ export function FormLogin({ setRegister }: FormLoginProps) {
   return (
     <>
       <strong> Faça login na plataforma </strong>
+
       <Form
         name="normal_login"
         className="login-form"
@@ -50,7 +48,6 @@ export function FormLogin({ setRegister }: FormLoginProps) {
           <Form.Item name="remember" valuePropName="checked" noStyle>
             <Checkbox>Manter-me conectado</Checkbox>
           </Form.Item>
-
           <a className="login-form-forgot" href="">
             Recuperar senha
           </a>
@@ -64,12 +61,9 @@ export function FormLogin({ setRegister }: FormLoginProps) {
             Entrar
           </Button>{" "}
           Ou{" "}
-          <span
-            onClick={() => setRegister((state) => !state)}
-            className="registerLink"
-          >
+          <Link href={"/register"} className="registerLink">
             Cadastra-se agora!!
-          </span>
+          </Link>
         </Form.Item>
       </Form>
       <Footer />

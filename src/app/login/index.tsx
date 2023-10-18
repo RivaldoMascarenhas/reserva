@@ -1,17 +1,13 @@
 "use client";
-import Image from "next/image";
 import { Card, Typography } from "antd";
+import { Title } from "../components/title/title";
+import FormLogin from "./components/form/formLogin";
 import imgLogin from "public/imgLogin.svg";
-import imgRegister from "public/imgRegister.svg";
-import "./style.css";
-import { FormLogin } from "./components/form/formLogin";
-import { useState } from "react";
-import { FormRegister } from "./components/form/formRegister";
-import { Title } from "./components/title/title";
+import Image from "next/image";
+import "../styles.css";
 
-export default function Login() {
+export function Login() {
   const { Text, Paragraph } = Typography;
-  const [register, setRegister] = useState(false);
 
   return (
     <div className="container">
@@ -27,16 +23,10 @@ export default function Login() {
           Sagittis, elementum pharetra, pharetra posuere pellentesque aliquet.
           Ipsum vitae at non, tempor feugiat.
         </Text>
-        {register === true && (
-          <Image src={imgRegister} width={720} height={430} alt="" />
-        )}
-        {register === false && (
-          <Image src={imgLogin} width={720} height={430} alt="" />
-        )}
+        <Image src={imgLogin} width={720} height={430} alt="" />
       </div>
       <Card style={{ width: "30rem", border: "none", marginTop: "5rem" }}>
-        {register === false && <FormLogin setRegister={setRegister} />}
-        {register === true && <FormRegister setRegister={setRegister} />}
+        <FormLogin />
       </Card>
     </div>
   );

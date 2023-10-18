@@ -1,3 +1,8 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
 .container {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -23,10 +28,3 @@
     #f8f8ff;
   border-radius: 8px !important;
 }
-
-/* .ant-input-affix-wrapper {
-  background: transparent !important;
-  & > input {
-    background-color: transparent !important;
-  }
-} */

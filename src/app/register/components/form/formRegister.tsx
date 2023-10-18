@@ -1,19 +1,15 @@
+"use client";
 import { Button, Checkbox, Form, Input } from "antd";
-import { Dispatch, SetStateAction } from "react";
 import "./form.css";
 
-interface FormRegisterProps {
-  setRegister: Dispatch<SetStateAction<boolean>>;
-}
-
-export function FormRegister({ setRegister }: FormRegisterProps) {
+export function FormRegister() {
   const onFinish = (values: any) => {
     console.log("Received values of form: ", values);
   };
   return (
     <>
       <strong> Cadastre-se agora </strong>
-      <Form name="register-form" onFinish={onFinish}>
+      <Form name="register-form" layout="vertical" onFinish={onFinish}>
         <Form.Item
           label="Empresa"
           name={"company"}
@@ -76,14 +72,7 @@ export function FormRegister({ setRegister }: FormRegisterProps) {
           CADASTRAR
         </Button>
         <p>
-          Já possui uma conta? Faça{" "}
-          <a
-            onClick={() => {
-              setRegister((state) => !state);
-            }}
-          >
-            login.
-          </a>
+          Já possui uma conta? Faça <a href="/">login.</a>
         </p>
       </Form>
     </>

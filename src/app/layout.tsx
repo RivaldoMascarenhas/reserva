@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { Marmelad } from "next/font/google";
+import { Marmelad, Roboto } from "next/font/google";
 import { RootStyleRegistry } from "./root-style-registry";
+import "./styles.css";
 
 export const marmelad = Marmelad({
   style: "normal",
@@ -8,9 +9,15 @@ export const marmelad = Marmelad({
   weight: ["400"],
 });
 
+export const roboto = Roboto({
+  weight: ["100", "300", "400", "500", "700"],
+  style: "normal",
+  subsets: ["latin"],
+});
+
 export const metadata: Metadata = {
-  title: "Login",
-  description: "Login",
+  title: "Reserva.me",
+  description: "Reserva.me",
   icons: "/cronograma.png",
 };
 
@@ -22,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <head />
-      <body className={marmelad.className}>
+      <body className={`${marmelad.className} ${roboto.className} `}>
         <RootStyleRegistry>{children}</RootStyleRegistry>
       </body>
     </html>
