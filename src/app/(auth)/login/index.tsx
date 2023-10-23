@@ -1,10 +1,10 @@
 "use client";
+import { Title } from "@/app/components/title/title";
 import { Card, Typography } from "antd";
-import { Title } from "../components/title/title";
-import FormLogin from "./components/form/formLogin";
-import imgLogin from "public/imgLogin.svg";
 import Image from "next/image";
-import "../styles.css";
+import imgLogin from "public/imgLogin.svg";
+import "../../styles.css";
+import FormLogin from "./components/form/formLogin";
 
 export function Login() {
   const { Text, Paragraph } = Typography;

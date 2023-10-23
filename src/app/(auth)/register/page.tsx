@@ -1,10 +1,10 @@
-import { Title } from "../components/title/title";
-import { FormRegister } from "./components/form/formRegister";
+import { Title } from "@/app/components/title/title";
 import { Card } from "antd";
 import Paragraph from "antd/es/typography/Paragraph";
 import Image from "next/image";
 import imgRegister from "public/imgRegister.svg";
-import "../styles.css";
+import "../../styles.css";
+import { FormRegister } from "./components/form/formRegister";
 
 export default function Register() {
   return (
