@@ -29,3 +29,10 @@
     width: 110px;
   }
 }
+.ant-btn-background-ghost {
+  &:hover {
+    background-color: #1677ff !important;
+    color: #fff !important;
+    border-color: #fff !important;
+  }
+}

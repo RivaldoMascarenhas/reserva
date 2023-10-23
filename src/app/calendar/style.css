@@ -1,8 +1,13 @@
 .Container {
   display: grid;
-  grid-gap: 2rem;
+  grid-gap: 1rem;
   grid-template-columns: minmax(200px, 200px) minmax(1024px, 1fr);
   width: 1024px;
   margin: 0 auto;
   padding: 0 1rem;
+}
+.Content {
+  display: flex;
+  flex-direction: column;
+  padding-top: 0.5rem;
 }
