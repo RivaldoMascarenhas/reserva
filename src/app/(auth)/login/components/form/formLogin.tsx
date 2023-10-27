@@ -1,9 +1,8 @@
-"use client";
-import { Button, Checkbox, Form, Input } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Footer } from "../footer/footerLogin";
-import "./form.css";
+import { Button, Checkbox, Form, Input } from "antd";
 import Link from "next/link";
+import { Footer } from "./footer/footerLogin";
+import "./form.css";
 
 export default function FormLogin() {
   const onFinish = (values: any) => {
@@ -12,11 +11,10 @@ export default function FormLogin() {
 
   return (
     <>
-      <strong> Faça login na plataforma </strong>
-
+      <strong className="titleForm"> Faça login na plataforma </strong>
       <Form
         name="normal_login"
-        className="login-form"
+        className="loginForm"
         initialValues={{ remember: true }}
         onFinish={onFinish}
       >

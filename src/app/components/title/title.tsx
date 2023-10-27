@@ -1,9 +1,12 @@
+"use client";
+import { useRouter } from "next/navigation";
 import "./style.css";
 
-export function Title() {
+export default function Title() {
+  const { push } = useRouter();
   return (
     <>
-      <p className="title">
+      <p className="title" onClick={() => push("/")}>
         reserva<span>.me</span>
       </p>
     </>

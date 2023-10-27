@@ -1,8 +1,8 @@
 "use client";
-import { Title } from "@/app/components/title/title";
-import { ItemSidebar } from "./components/itemSidebar";
-import { Button } from "antd";
+import Title from "@/app/components/title/title";
 import { PlusOutlined } from "@ant-design/icons";
+import { Button } from "antd";
+import { ItemSidebar } from "./components/itemSidebar";
 import "./sidebar.css";
 
 export function Sidebar() {

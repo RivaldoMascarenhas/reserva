@@ -1,6 +1,5 @@
 "use client";
 import { Button, Checkbox, Form, Input } from "antd";
-import "./form.css";
 
 export function FormRegister() {
   const onFinish = (values: any) => {
@@ -8,8 +7,13 @@ export function FormRegister() {
   };
   return (
     <>
-      <strong> Cadastre-se agora </strong>
-      <Form name="register-form" layout="vertical" onFinish={onFinish}>
+      <strong style={{ marginBottom: "1rem" }}> Cadastre-se agora </strong>
+      <Form
+        name="register-form"
+        className="loginForm"
+        layout="vertical"
+        onFinish={onFinish}
+      >
         <Form.Item
           label="Empresa"
           name={"company"}
@@ -64,9 +68,11 @@ export function FormRegister() {
         </Form.Item>
 
         <Form.Item name="agree" valuePropName="checked">
-          <Checkbox defaultChecked>
-            Eu aceito <a> os termos de uso</a> da plataforma
-          </Checkbox>
+          <Checkbox defaultChecked>Eu aceito</Checkbox>
+          <a href="https://policies.google.com/terms?hl=pt-BR">
+            os termos de uso
+          </a>{" "}
+          <span> da plataforma.</span>
         </Form.Item>
         <Button type="primary" htmlType="submit" block onClick={() => onFinish}>
           CADASTRAR
