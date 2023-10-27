@@ -4,7 +4,7 @@ import Paragraph from "antd/es/typography/Paragraph";
 import Image from "next/image";
 import imgRegister from "public/imgRegister.svg";
 import "../../styles.css";
-import { FormRegister } from "./components/form/formRegister";
+import { FormRegister } from "./components/formRegister";
 
 export default function Register() {
   return (

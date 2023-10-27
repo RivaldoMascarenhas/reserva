@@ -4,7 +4,7 @@ import { Card, Typography } from "antd";
 import Image from "next/image";
 import imgLogin from "public/imgLogin.svg";
 import "../../styles.css";
-import FormLogin from "./components/form/formLogin";
+import FormLogin from "./components/formLogin";
 
 export default function Login() {
   const { Text, Paragraph } = Typography;
