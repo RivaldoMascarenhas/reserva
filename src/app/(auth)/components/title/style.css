@@ -3,6 +3,8 @@
   font-family: Marmelad;
   font-size: 30.415px;
   font-weight: 400;
+  cursor: pointer;
+  width: 8.2rem;
   & > span {
     color: rgba(62, 116, 255, 0.84);
     font-family: Marmelad;

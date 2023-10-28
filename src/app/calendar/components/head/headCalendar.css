@@ -1,4 +1,13 @@
+.ContainerHead {
+  display: flex;
+  justify-content: space-between;
+}
 .ButtonMes {
   color: gray;
   cursor: default;
+}
+.ContainerAvatar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }

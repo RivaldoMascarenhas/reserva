@@ -1,8 +1,7 @@
 "use client";
-import Title from "@/app/components/title/title";
-import { PlusOutlined } from "@ant-design/icons";
-import { Button } from "antd";
+import Title from "@/app/(auth)/components/title/title";
 import { ItemSidebar } from "./components/itemSidebar";
+import { ModalSidebar } from "./components/modalSidebar/modalSidebar";
 import "./sidebar.css";
 
 export function Sidebar() {
@@ -20,9 +19,7 @@ export function Sidebar() {
         <ItemSidebar name="Sala Circuito 02" />
         <ItemSidebar name="Sala Circuito 03" />
       </ul>
-      <Button type="primary" ghost icon={<PlusOutlined />}>
-        NOVO AMBIENTE
-      </Button>
+      <ModalSidebar />
     </div>
   );
 }

@@ -1,0 +1,8 @@
+.name {
+  color: #1976d2;
+  font-weight: bold;
+  user-select: none;
+}
+.avatar {
+  background: #1976d2 !important;
+}

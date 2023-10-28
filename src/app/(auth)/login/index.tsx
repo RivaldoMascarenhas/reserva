@@ -1,9 +1,9 @@
 "use client";
-import Title from "@/app/components/title/title";
 import { Card, Typography } from "antd";
 import Image from "next/image";
 import imgLogin from "public/imgLogin.svg";
 import "../../styles.css";
+import Title from "../components/title/title";
 import FormLogin from "./components/formLogin";
 
 export default function Login() {
