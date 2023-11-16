@@ -4,3 +4,11 @@ export type FieldType = {
   data?: Date;
   time?: Date;
 };
+export interface valuesProps {
+  company: string;
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  agree: boolean;
+}

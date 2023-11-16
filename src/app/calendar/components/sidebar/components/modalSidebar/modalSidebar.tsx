@@ -62,13 +62,16 @@ export function ModalSidebar() {
             name="data"
             rules={[{ required: true, message: "Coloque uma Data" }]}
           >
-            <DatePicker />
+            <DatePicker placeholder="Escolha uma data" />
           </Form.Item>
           <Form.Item<FieldType>
             name="time"
+            label="Horário de Funcionamento"
             rules={[{ required: true, message: "Coloque um Horário" }]}
           >
-            <TimePicker />
+            <TimePicker.RangePicker
+              placeholder={["Horário inicial", "Horário final"]}
+            />
           </Form.Item>
           <Space>
             <Button key="back" onClick={handleCancel}>

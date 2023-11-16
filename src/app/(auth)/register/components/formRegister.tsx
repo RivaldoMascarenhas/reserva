@@ -1,10 +1,31 @@
 "use client";
+import { valuesProps } from "@/@types/types";
+import { api } from "@/lib/axios";
 import { Button, Checkbox, Form, Input } from "antd";
 
+const initialValues: valuesProps = {
+  name: "",
+  password: "",
+  company: "",
+  email: "",
+  confirmPassword: "",
+  agree: true,
+};
+
 export function FormRegister() {
-  const onFinish = (values: any) => {
-    console.log("Received values of form: ", values);
+  const onFinish = async (values: valuesProps) => {
+    try {
+      await api.post("/users", {
+        name: values.name,
+        email: values.email,
+        password: values.password,
+        agree: values.agree,
+      });
+    } catch (err) {
+      console.error(err);
+    }
   };
+
   return (
     <>
       <strong style={{ marginBottom: "1rem" }}> Cadastre-se agora </strong>
@@ -13,6 +34,7 @@ export function FormRegister() {
         className="loginForm"
         layout="vertical"
         onFinish={onFinish}
+        initialValues={initialValues}
       >
         <Form.Item
           label="Empresa"
@@ -23,7 +45,7 @@ export function FormRegister() {
         </Form.Item>
         <Form.Item
           label="Nome"
-          name={"UserName"}
+          name={"name"}
           rules={[{ required: true, message: "Insira seu nome" }]}
         >
           <Input placeholder="Insira seu nome" autoComplete="on" />
@@ -67,14 +89,12 @@ export function FormRegister() {
           <Input type="password" placeholder="************" />
         </Form.Item>
 
-        <Form.Item name="agree" valuePropName="checked">
-          <Checkbox defaultChecked>Eu aceito</Checkbox>
-          <a href="https://policies.google.com/terms?hl=pt-BR">
-            os termos de uso
-          </a>{" "}
-          <span> da plataforma.</span>
+        <Form.Item required name="agree" valuePropName="checked">
+          <Checkbox defaultChecked>
+            Eu aceito <a>termos.</a>
+          </Checkbox>
         </Form.Item>
-        <Button type="primary" htmlType="submit" block onClick={() => onFinish}>
+        <Button type="primary" htmlType="submit">
           CADASTRAR
         </Button>
         <p>
