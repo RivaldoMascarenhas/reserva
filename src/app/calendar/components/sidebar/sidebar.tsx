@@ -1,5 +1,5 @@
 "use client";
-import Title from "@/app/(auth)/components/title/title";
+import Title from "@/app/components/title/title";
 import { ItemSidebar } from "./components/itemSidebar";
 import { ModalSidebar } from "./components/modalSidebar/modalSidebar";
 import "./sidebar.css";

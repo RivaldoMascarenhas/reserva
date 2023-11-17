@@ -1,14 +1,17 @@
 import { DownOutlined, LogoutOutlined } from "@ant-design/icons";
 import { Avatar, Button, Dropdown, MenuProps, Space } from "antd";
+import { signOut, useSession } from "next-auth/react";
 import "./style.css";
 
 export function AvatarHead() {
+  const {} = useSession();
   const handleMenuClick: MenuProps["onClick"] = (e) => {
     console.log("click", e);
   };
 
   const items: MenuProps["items"] = [
     {
+      onClick: () => signOut({ callbackUrl: "/" }),
       label: "Sair",
       key: "1",
       icon: <LogoutOutlined />,

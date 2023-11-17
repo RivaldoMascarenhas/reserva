@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Marmelad, Roboto } from "next/font/google";
+import AuthProvider from "./components/authProvider";
 import { RootStyleRegistry } from "./root-style-registry";
 import "./styles.css";
 
@@ -30,7 +31,9 @@ export default function RootLayout({
     <html lang="pt-br">
       <head />
       <body className={`${marmelad.className} ${roboto.className} `}>
-        <RootStyleRegistry>{children}</RootStyleRegistry>
+        <AuthProvider>
+          <RootStyleRegistry>{children}</RootStyleRegistry>
+        </AuthProvider>
       </body>
     </html>
   );

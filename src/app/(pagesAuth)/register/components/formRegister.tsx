@@ -2,6 +2,7 @@
 import { valuesProps } from "@/@types/types";
 import { api } from "@/lib/axios";
 import { Button, Checkbox, Form, Input } from "antd";
+import { useRouter } from "next/navigation";
 
 const initialValues: valuesProps = {
   name: "",
@@ -13,14 +14,15 @@ const initialValues: valuesProps = {
 };
 
 export function FormRegister() {
+  const { replace } = useRouter();
+
   const onFinish = async (values: valuesProps) => {
     try {
-      await api.post("/users", {
-        name: values.name,
-        email: values.email,
-        password: values.password,
-        agree: values.agree,
-      });
+      const res = await api.post("api/users", { ...values });
+
+      if (res.statusText === "Created") {
+        replace("/");
+      }
     } catch (err) {
       console.error(err);
     }
@@ -46,9 +48,9 @@ export function FormRegister() {
         <Form.Item
           label="Nome"
           name={"name"}
-          rules={[{ required: true, message: "Insira seu nome" }]}
+          rules={[{ required: true, message: "Insira seu nome completo" }]}
         >
-          <Input placeholder="Insira seu nome" autoComplete="on" />
+          <Input placeholder="Insira seu nome completo" autoComplete="on" />
         </Form.Item>
         <Form.Item
           label="Email"

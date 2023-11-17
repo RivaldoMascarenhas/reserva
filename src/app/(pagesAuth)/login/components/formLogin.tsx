@@ -1,12 +1,21 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input } from "antd";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Footer } from "./footer/footerLogin";
 import "./form.css";
 
 export default function FormLogin() {
-  const onFinish = (values: any) => {
-    console.log("Received values of form: ", values);
+  const { replace } = useRouter();
+  const onFinish = async (values: any) => {
+    const res = await signIn<"credentials">("credentials", {
+      ...values,
+      redirect: false,
+    });
+    if (res?.ok === true) {
+      replace("/calendar");
+    }
   };
 
   return (
@@ -19,17 +28,19 @@ export default function FormLogin() {
         onFinish={onFinish}
       >
         <Form.Item
-          name="username"
+          name="email"
           rules={[
             {
               required: true,
-              message: "Por favor insira seu nome de usuário!",
+              message: "Por favor insira seu email!",
             },
           ]}
         >
           <Input
+            type="email"
+            autoComplete="true"
             prefix={<UserOutlined className="site-form-item-icon" />}
-            placeholder="Insina seu nome de usuário"
+            placeholder="Insina seu email"
           />
         </Form.Item>
         <Form.Item
@@ -39,7 +50,7 @@ export default function FormLogin() {
           <Input
             prefix={<LockOutlined className="site-form-item-icon" />}
             type="password"
-            placeholder="Insira sua senha!"
+            placeholder="Senha"
           />
         </Form.Item>
         <Form.Item>
