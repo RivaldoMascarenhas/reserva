@@ -4,6 +4,10 @@ import AuthProvider from "./components/authProvider";
 import { RootStyleRegistry } from "./root-style-registry";
 import "./styles.css";
 
+interface RootLayoutProps {
+  children: React.ReactNode;
+}
+
 export const marmelad = Marmelad({
   style: "normal",
   subsets: ["latin"],
@@ -22,11 +26,7 @@ export const metadata: Metadata = {
   icons: "/cronograma.png",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default async function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="pt-br">
       <head />

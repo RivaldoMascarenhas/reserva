@@ -24,19 +24,28 @@ export const authOptions: AuthOptions = {
           throw new Error("Email not found");
         }
 
-        const password = bcrypt.compare(
-          user.password,
-          credentials?.password ?? ""
+        const password = await bcrypt.compare(
+          credentials?.password!,
+          user.password
         );
         if (!password) {
           throw new Error("Invalid password");
         }
+
         return user;
       },
     }),
   ],
   secret: process.env.SECRET,
   session: { strategy: "jwt" },
+  callbacks: {
+    async session({ session, user }) {
+      return {
+        ...session,
+        user: { ...user },
+      };
+    },
+  },
 };
 
 const handler = NextAuth(authOptions);

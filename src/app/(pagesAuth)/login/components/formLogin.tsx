@@ -14,7 +14,7 @@ export default function FormLogin() {
       redirect: false,
     });
     if (res?.ok === true) {
-      replace("/calendar");
+      replace("/");
     }
   };
 
