@@ -28,21 +28,27 @@ export const authOptions: AuthOptions = {
           credentials?.password!,
           user.password
         );
+
         if (!password) {
           throw new Error("Invalid password");
         }
 
-        return user;
+        return { ...user };
       },
     }),
   ],
   secret: process.env.SECRET,
   session: { strategy: "jwt" },
   callbacks: {
-    async session({ session, user }) {
+    async session({ session }) {
+      const userFull = await prisma.user.findUnique({
+        where: {
+          email: session.user?.email!,
+        },
+      });
       return {
         ...session,
-        user: { ...user },
+        user: { ...userFull },
       };
     },
   },
