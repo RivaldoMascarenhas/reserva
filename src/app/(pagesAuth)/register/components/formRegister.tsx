@@ -46,9 +46,15 @@ export function FormRegister() {
           <Input placeholder="Insira nome de sua Empresa" autoFocus />
         </Form.Item>
         <Form.Item
-          label="Nome"
+          label="Nome Completo"
           name={"name"}
-          rules={[{ required: true, message: "Insira seu nome completo" }]}
+          rules={[
+            { required: true, message: "Insira seu nome completo" },
+            {
+              pattern: /^[A-Za-zÀ-ÖØ-öø-ÿ]+ [A-Za-zÀ-ÖØ-öø-ÿ]+$/,
+              message: "Por favor, insira seu primeiro e segundo nome!",
+            },
+          ]}
         >
           <Input placeholder="Insira seu nome completo" autoComplete="on" />
         </Form.Item>
@@ -66,7 +72,14 @@ export function FormRegister() {
         <Form.Item
           label="Senha"
           name={"password"}
-          rules={[{ required: true, message: "Insira sua senha" }]}
+          rules={[
+            { required: true, message: "Insira sua senha" },
+            {
+              pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/,
+              message:
+                "Senha deve conter letras minúscula, maiúscula e pelo menos um número",
+            },
+          ]}
         >
           <Input type="password" placeholder="************" />
         </Form.Item>

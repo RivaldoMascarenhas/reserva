@@ -38,14 +38,21 @@ export default function FormLogin() {
         >
           <Input
             type="email"
-            autoComplete="true"
+            autoComplete="on"
             prefix={<UserOutlined className="site-form-item-icon" />}
             placeholder="Insina seu email"
           />
         </Form.Item>
         <Form.Item
           name="password"
-          rules={[{ required: true, message: "Por favor insira sua senha!" }]}
+          rules={[
+            { required: true, message: "Insira sua senha" },
+            {
+              pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/,
+              message:
+                "Senha deve conter letras minúscula, maiúscula e pelo menos um número",
+            },
+          ]}
         >
           <Input
             prefix={<LockOutlined className="site-form-item-icon" />}

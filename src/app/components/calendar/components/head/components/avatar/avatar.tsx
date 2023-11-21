@@ -4,10 +4,8 @@ import { signOut, useSession } from "next-auth/react";
 import "./style.css";
 
 export function AvatarHead() {
-  const {} = useSession();
-  const handleMenuClick: MenuProps["onClick"] = (e) => {
-    console.log("click", e);
-  };
+  const { data } = useSession();
+  const handleMenuClick: MenuProps["onClick"] = (e) => {};
 
   const items: MenuProps["items"] = [
     {
@@ -24,9 +22,9 @@ export function AvatarHead() {
   return (
     <div>
       <Space>
-        <span className="name">Rivaldo Mascarenhas</span>
+        <span className="name">{data?.user?.name?.toUpperCase()}</span>
         <Avatar className="avatar" size={40}>
-          RM
+          {data?.user?.name?.toUpperCase()}
         </Avatar>
       </Space>
       <Dropdown trigger={["click"]} menu={menuProps}>
