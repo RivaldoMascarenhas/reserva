@@ -22,7 +22,7 @@ export const authOptions: AuthOptions = {
         });
 
         if (!user) {
-          throw new Error("Email not found");
+          throw new Error("Email incorreto!");
         }
 
         const password = await bcrypt.compare(
@@ -31,7 +31,7 @@ export const authOptions: AuthOptions = {
         );
 
         if (!password) {
-          throw new Error("Invalid password");
+          throw new Error("Senha incorreta!");
         }
 
         return { ...user };
