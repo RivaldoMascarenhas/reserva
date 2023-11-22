@@ -1,8 +1,9 @@
 import {
   FacebookFilled,
-  GithubOutlined,
+  GoogleOutlined,
   WindowsFilled,
 } from "@ant-design/icons";
+import { signIn } from "next-auth/react";
 import "./footer.css";
 
 export function Footer() {
@@ -15,7 +16,12 @@ export function Footer() {
       </div>
       <div className=" iconsFooter">
         <FacebookFilled className="icon" />
-        <GithubOutlined className="icon" />
+        <GoogleOutlined
+          onClick={() =>
+            signIn("google", { callbackUrl: "/", redirect: false })
+          }
+          className="icon"
+        />
         <WindowsFilled className="icon" />
       </div>
     </div>

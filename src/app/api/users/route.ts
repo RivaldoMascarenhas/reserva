@@ -4,31 +4,42 @@ import bcrypt from "bcrypt";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  const data: valuesProps = await req.json();
+  try {
+    const data: valuesProps = await req.json();
 
-  if (!data.name || !data.email || !data.password) {
-    return NextResponse.json("Invalid parameters", { status: 400 });
+    if (!data.name || !data.email || !data.password) {
+      return NextResponse.json("Parâmetros inválidos", { status: 400 });
+    }
+
+    const existingUser = await prisma.user.findUnique({
+      where: {
+        email: data.email,
+      },
+    });
+
+    if (existingUser) {
+      return NextResponse.json("Usuário já existe", { status: 400 });
+    }
+
+    const hashedPassword = await bcrypt.hash(data.password, 10);
+
+    const user = await prisma.user.create({
+      data: {
+        name: data.name,
+        email: data.email,
+        company: data.company,
+        password: hashedPassword,
+        agree: data.agree,
+      },
+    });
+
+    console.log(`Usuário criado: ${user.email}`);
+
+    return NextResponse.json(user, { status: 201 });
+  } catch (error) {
+    console.error("Erro durante a criação do usuário:", error);
+    return NextResponse.json("Erro durante a criação do usuário", {
+      status: 500,
+    });
   }
-  const isUserExists = await prisma.user.findUnique({
-    where: {
-      email: data.email,
-    },
-  });
-  if (isUserExists) {
-    return NextResponse.json("User already exists", { status: 400 });
-  }
-
-  const password = await bcrypt.hash(data.password, 10);
-
-  const user = await prisma.user.create({
-    data: {
-      name: data.name,
-      email: data.email,
-      company: data.company,
-      password,
-      agree: data.agree,
-    },
-  });
-
-  return NextResponse.json(user, { status: 201 });
 }
