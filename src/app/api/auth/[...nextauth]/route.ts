@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prima";
+import { prisma } from "@/lib/prisma";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import bcrypt from "bcrypt";
 import NextAuth, { AuthOptions } from "next-auth";
@@ -27,7 +27,7 @@ export const authOptions: AuthOptions = {
 
         const password = await bcrypt.compare(
           credentials?.password!,
-          user.password
+          user.password!
         );
 
         if (!password) {
@@ -43,7 +43,11 @@ export const authOptions: AuthOptions = {
     }),
   ],
   secret: process.env.SECRET,
+  pages: {
+    signIn: "/login",
+  },
   session: { strategy: "jwt" },
+
   callbacks: {
     async session({ session }) {
       const userFull = await prisma.user.findUnique({

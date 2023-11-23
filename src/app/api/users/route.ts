@@ -1,5 +1,5 @@
 import { valuesProps } from "@/@types/types";
-import { prisma } from "@/lib/prima";
+import { prisma } from "@/lib/adapter";
 import bcrypt from "bcrypt";
 import { NextRequest, NextResponse } from "next/server";
 

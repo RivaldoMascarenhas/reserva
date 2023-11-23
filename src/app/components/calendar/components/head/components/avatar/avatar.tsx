@@ -23,9 +23,11 @@ export function AvatarHead() {
     <div>
       <Space>
         <span className="name">{data?.user?.name?.toUpperCase()}</span>
-        <Avatar className="avatar" size={40}>
-          {data?.user?.name?.toUpperCase()}
-        </Avatar>
+        <Avatar
+          className="avatar"
+          src={`${data?.user?.image}`}
+          size={40}
+        ></Avatar>
       </Space>
       <Dropdown trigger={["click"]} menu={menuProps}>
         <Button

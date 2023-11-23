@@ -9,18 +9,23 @@ datasource db {
 
 model Account {
   id                 String    @id @default(cuid())
+  type               String?
+  id_token           String?
+  scope              String?
   userId             String
-  providerType       String
-  providerId         String
+  providerType       String?
+  provider           String
   providerAccountId  String
+  token_type         String
+  expires_at         Int
   refreshToken       String?
-  accessToken        String?
+  access_token       String?
   accessTokenExpires DateTime?
   createdAt          DateTime  @default(now())
   updatedAt          DateTime  @updatedAt
   user               User      @relation(fields: [userId], references: [id])
 
-  @@unique([providerId, providerAccountId])
+  @@unique([provider, providerAccountId])
 }
 
 model Session {
@@ -37,7 +42,7 @@ model Session {
 model User {
   id            String    @id @default(cuid())
   name          String
-  password      String
+  password      String?
   email         String    @unique
   company       String?
   agree         Boolean?
