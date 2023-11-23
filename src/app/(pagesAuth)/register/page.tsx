@@ -3,13 +3,13 @@ import { Card } from "antd";
 import Paragraph from "antd/es/typography/Paragraph";
 import Image from "next/image";
 import imgRegister from "public/imgRegister.svg";
-import "../../styles.css";
 import { FormRegister } from "./components/formRegister";
+import "./style.css";
 
 export default function Register() {
   return (
-    <div className="container">
-      <div className="textContainerLogin">
+    <div className="ContainerRegister">
+      <div>
         <Title />
         <Paragraph strong>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum,

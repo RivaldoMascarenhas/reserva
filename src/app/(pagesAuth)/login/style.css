@@ -1,0 +1,8 @@
+.ContainerLogin {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: center;
+  max-width: 1024px;
+  gap: 5rem;
+  margin: 0 auto;
+}

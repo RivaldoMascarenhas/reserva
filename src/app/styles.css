@@ -3,15 +3,6 @@ body {
   padding: 0;
 }
 
-.container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  justify-content: center;
-  max-width: 1024px;
-  gap: 5rem;
-  margin: 0 auto;
-}
-
 .ant-card-body {
   display: flex;
   flex-direction: column;
@@ -31,4 +22,18 @@ body {
 }
 .ant-input {
   background: transparent !important;
+}
+.Container {
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: minmax(200px, 200px) minmax(600px, 1fr);
+  width: 75rem;
+
+  margin: 0 auto;
+  padding: 0 0.5rem;
+}
+.Content {
+  display: flex;
+  flex-direction: column;
+  padding-top: 0.5rem;
 }

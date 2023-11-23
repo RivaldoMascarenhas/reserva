@@ -1,6 +1,6 @@
 "use client";
 import { valuesProps } from "@/@types/types";
-import { api } from "@/lib/axios";
+import { api } from "@/_lib/axios";
 import { Button, Checkbox, Form, Input } from "antd";
 import { useRouter } from "next/navigation";
 
