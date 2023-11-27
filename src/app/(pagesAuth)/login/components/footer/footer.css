@@ -21,8 +21,3 @@
   display: flex;
   gap: 1.5rem;
 }
-.icon {
-  cursor: pointer;
-  color: #838383 !important;
-  font-size: 20px;
-}

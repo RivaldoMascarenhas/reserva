@@ -1,9 +1,6 @@
-import {
-  FacebookFilled,
-  GoogleOutlined,
-  WindowsFilled,
-} from "@ant-design/icons";
 import { signIn } from "next-auth/react";
+import { FaGithub } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 import "./footer.css";
 
 export function Footer() {
@@ -15,14 +12,13 @@ export function Footer() {
         <div className="row"></div>
       </div>
       <div className=" iconsFooter">
-        <FacebookFilled className="icon" />
-        <GoogleOutlined
+        <FaGithub size={20} />
+        <FcGoogle
           onClick={() =>
             signIn("google", { callbackUrl: "/", redirect: false })
           }
-          className="icon"
+          size={20}
         />
-        <WindowsFilled className="icon" />
       </div>
     </div>
   );

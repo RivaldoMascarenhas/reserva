@@ -8,8 +8,12 @@ const getListData = (value: Dayjs) => {
   switch (value.date()) {
     case 8:
       listData = [
-        { type: "warning", content: "This is warning event." },
-        { type: "success", content: "This is usual event." },
+        {
+          type: "warning",
+          content: "This is warning event.",
+          day: value.date(),
+        },
+        { type: "success", content: "This is usual event.", day: value.date() },
       ];
       break;
     case 10:
@@ -45,7 +49,7 @@ export function App() {
     const num = getMonthData(value);
     return num ? (
       <div className="notes-month">
-        <section>{num}</section>
+        <section>{num} </section>
         <span>Backlog number</span>
       </div>
     ) : null;
