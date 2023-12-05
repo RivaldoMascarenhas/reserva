@@ -1,14 +1,11 @@
-"use client";
+"use client"
 import { Button, Typography } from "antd";
-import { useSession } from "next-auth/react";
 import { AvatarHead } from "./components/avatar/avatar";
 import { ModalReservationDay } from "./components/modal/modalReservasionDay";
 import "./headCalendar.css";
 
-export function HeadCalendar() {
-  const { data } = useSession();
-  console.log(data);
-
+export default function HeadCalendar() {
+  
   const date = new Date().toLocaleDateString("pt-BR", { month: "long" });
   const month = date.charAt(0).toLocaleUpperCase() + date.slice(1);
   const { Title, Text } = Typography;

@@ -57,14 +57,15 @@ export const authOptions: AuthOptions = {
 
   callbacks: {
     async session({ session }) {
-      const userFull = await prisma.user.findUnique({
-        where: {
-          email: session.user?.email!,
-        },
-      });
+      const user =
+        (await prisma.user.findUnique({
+          where: {
+            email: session.user?.email!,
+          },
+        })) ?? undefined;
       return {
         ...session,
-        user: { ...userFull },
+        user,
       };
     },
   },

@@ -2,6 +2,7 @@
 import type { BadgeProps, CalendarProps } from "antd";
 import { Badge, Calendar } from "antd";
 import type { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 
 const getListData = (value: Dayjs) => {
   let listData;
@@ -77,5 +78,12 @@ export function App() {
     return info.originNode;
   };
 
-  return <Calendar cellRender={cellRender} />;
+  return (
+    <Calendar
+      cellRender={cellRender}
+      disabledDate={(date) => {
+        return dayjs().isAfter(date);
+      }}
+    />
+  );
 }

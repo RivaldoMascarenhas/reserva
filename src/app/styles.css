@@ -27,13 +27,10 @@ body {
   display: grid;
   grid-gap: 1rem;
   grid-template-columns: minmax(200px, 200px) minmax(600px, 1fr);
-  width: 75rem;
-
   margin: 0 auto;
-  padding: 0 0.5rem;
 }
 .Content {
   display: flex;
   flex-direction: column;
-  padding-top: 0.5rem;
+  padding: 1rem 1rem 0 0;
 }

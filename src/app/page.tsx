@@ -2,7 +2,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { App } from "./components/calendar/calendar";
-import { HeadCalendar } from "./components/head/headCalendar";
+import HeadCalendar from "./components/head/headCalendar";
 import { Sidebar } from "./components/sidebar/sidebar";
 import "./styles.css";
 

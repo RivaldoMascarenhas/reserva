@@ -12,12 +12,13 @@ export function Footer() {
         <div className="row"></div>
       </div>
       <div className=" iconsFooter">
-        <FaGithub size={20} />
+        <FaGithub size={20} style={{ cursor: "pointer" }}/>
         <FcGoogle
           onClick={() =>
             signIn("google", { callbackUrl: "/", redirect: false })
           }
           size={20}
+          style={{ cursor: "pointer" }}
         />
       </div>
     </div>
