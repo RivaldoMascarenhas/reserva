@@ -1,6 +1,6 @@
 "use client";
 import { Button, Typography } from "antd";
-import { AvatarHead } from "./components/avatar/avatar";
+import { AvatarHead } from "./avatar/avatar";
 import "./headCalendar.css";
 
 export default function HeadCalendar() {

@@ -1,7 +1,10 @@
 .containerSidebar {
   display: flex;
-  height: 100%;
+
+  height: 98vh;
+
   flex-direction: column;
+  padding-bottom: 1rem;
   gap: 1rem;
   align-items: center;
   border-radius: 0.5rem;
@@ -13,6 +16,7 @@
     #f8f8ff;
 }
 .listItemsSidebar {
+  overflow-y: scroll;
   width: 138px;
   display: flex;
   flex-direction: column;
@@ -27,7 +31,21 @@
   text-transform: uppercase;
   & > li {
     width: 110px;
+    cursor: pointer;
+    onselect: none;
   }
+}
+.listItemsSidebar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.listItemsSidebar::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 6px;
+}
+
+.listItemsSidebar::-webkit-scrollbar-track {
+  background-color: #eee;
 }
 .ant-btn-background-ghost {
   &:hover {

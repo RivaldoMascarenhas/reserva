@@ -2,8 +2,11 @@
 import { useStore } from "@/zustandStore";
 import type { BadgeProps, CalendarProps } from "antd";
 import { Badge, Calendar } from "antd";
-import type { Dayjs } from "dayjs";
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
+import isToday from "dayjs/plugin/isToday";
+import { ModalReservationDay } from "./modal/modalReservasionDay";
+
+dayjs.extend(isToday);
 
 const getListData = (value: Dayjs) => {
   let listData;
@@ -52,7 +55,7 @@ export function App() {
     return num ? (
       <div className="notes-month">
         <section>{num} </section>
-        <span>Backlog number</span>
+        <span>Backlog number </span>
       </div>
     ) : null;
   };
@@ -80,11 +83,22 @@ export function App() {
   };
   const { setOpenModal, setCurrentDate } = useStore();
   return (
-    <Calendar
-      cellRender={cellRender}
-      disabledDate={(date) => {
-        return dayjs().isAfter(date);
-      }}
-    />
+    <>
+      <Calendar
+        cellRender={cellRender}
+        onSelect={(date, { source }) => {
+          if (source !== "date") {
+            return;
+          }
+
+          setCurrentDate(date);
+          setOpenModal();
+        }}
+        disabledDate={(date) => {
+          return dayjs().isAfter(date) && !date.isToday();
+        }}
+      />
+      <ModalReservationDay />
+    </>
   );
 }

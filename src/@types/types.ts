@@ -1,8 +1,9 @@
 export type FieldType = {
   nameReservation?: string;
-  Guests?: number;
+  equipment?: string;
   data?: Date;
   time?: Date;
+  description?: string;
 };
 export interface valuesProps {
   company: string;

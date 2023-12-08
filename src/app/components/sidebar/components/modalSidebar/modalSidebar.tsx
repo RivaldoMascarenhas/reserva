@@ -1,95 +1,83 @@
 import { FieldType } from "@/@types/types";
-import { useModal } from "@/_hooks/useModal";
-import { PlusOutlined } from "@ant-design/icons";
-import {
-  Button,
-  DatePicker,
-  Form,
-  Input,
-  Modal,
-  Space,
-  TimePicker,
-} from "antd";
+import { Button, Form, Input, Modal, Space, TimePicker } from "antd";
+import { useState } from "react";
 
-export function ModalSidebar() {
-  const {
-    handleCancel,
-    handleOk,
-    open,
-    showModal,
-    onFinish,
-    onFinishFailed,
-    loading,
-    form,
-  } = useModal();
+interface ModalSidebarProps {
+  open: boolean;
+  onOk: () => void;
+  onCancel: () => void;
+}
+
+export function ModalSidebar({
+  open,
+  onCancel,
+  onOk,
+}: Readonly<ModalSidebarProps>) {
+  const [loading, setLoading] = useState(false);
+  const [form] = Form.useForm();
+
+  const onReset = () => {
+    form.resetFields();
+  };
+  const onFinish = (values: FieldType) => {
+    console.log("Success:", values);
+    setLoading(true);
+    onOk();
+    onReset();
+  };
+  const onFinishFailed = (errorInfo: any) => {
+    console.log("Failed:", errorInfo.message);
+  };
 
   return (
-    <>
-      <Button type="primary" onClick={showModal} ghost icon={<PlusOutlined />}>
-        NOVO AMBIENTE
-      </Button>
-      <Modal
-        open={open}
-        title="Nova reserva - Sala Circuito 01"
-        onOk={handleOk}
-        onCancel={handleCancel}
-        footer
+    <Modal
+      open={open}
+      title="Nova reserva - Sala Circuito 01"
+      onOk={onOk}
+      onCancel={() => {
+        onReset();
+        onCancel();
+      }}
+      footer
+    >
+      <Form
+        form={form}
+        name="modal"
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
       >
-        <Form
-          form={form}
-          name="modal"
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
+        <Form.Item<FieldType>
+          name="nameReservation"
+          rules={[{ required: true, message: "Coloque o nome do ambiente." }]}
         >
-          <Form.Item<FieldType>
-            name="nameReservation"
-            rules={[{ required: true, message: "Coloque um título!" }]}
-          >
-            <Input placeholder="Título da Reserva" />
-          </Form.Item>
-          <Form.Item<FieldType>
-            name="Guests"
-            rules={[{ required: true, message: "Escolha um número!" }]}
-          >
-            <Input
-              type="number"
-              placeholder="Quantos convidados?"
-              min={1}
-              max={25}
-            />
-          </Form.Item>
-          <Form.Item<FieldType>
-            name="data"
-            rules={[{ required: true, message: "Coloque uma Data" }]}
-          >
-            <DatePicker placeholder="Escolha uma data" />
-          </Form.Item>
-          <Form.Item<FieldType>
-            name="time"
-            label="Horário de Funcionamento"
-            rules={[{ required: true, message: "Coloque um Horário" }]}
-          >
-            <TimePicker.RangePicker
-              placeholder={["Horário inicial", "Horário final"]}
-            />
-          </Form.Item>
-          <Space>
-            <Button key="back" onClick={handleCancel}>
-              Return
-            </Button>
+          <Input placeholder="Nome do Ambiente" />
+        </Form.Item>
 
-            <Button
-              key="submit"
-              htmlType="submit"
-              type="primary"
-              loading={loading}
-              onClick={() => onFinish}
-            >
-              Submit
-            </Button>
-          </Space>
-        </Form>
-      </Modal>
-    </>
+        <Form.Item<FieldType>
+          name="time"
+          label="Horário de Funcionamento"
+          rules={[{ required: true, message: "Coloque um Horário" }]}
+        >
+          <TimePicker.RangePicker
+            placeholder={["Horário inicial", "Horário final"]}
+          />
+        </Form.Item>
+        <Space>
+          <Button key="back" onClick={onCancel}>
+            Return
+          </Button>
+
+          <Button
+            key="submit"
+            htmlType="submit"
+            type="primary"
+            loading={loading}
+            onClick={() => onFinish}
+          >
+            Submit
+          </Button>
+        </Space>
+      </Form>
+    </Modal>
   );
 }
