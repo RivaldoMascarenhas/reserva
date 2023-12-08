@@ -47,6 +47,7 @@ export function useModal() {
     onFinishFailed,
     onFinish,
     loading,
+    onReset,
     open,
     form,
   };

@@ -1,8 +1,9 @@
 "use client";
-import { dayjsLib } from "@/_lib/dayjs";
+import { useStore } from "@/zustandStore";
 import type { BadgeProps, CalendarProps } from "antd";
 import { Badge, Calendar } from "antd";
-import { Dayjs } from "dayjs";
+import type { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 
 const getListData = (value: Dayjs) => {
   let listData;
@@ -77,20 +78,13 @@ export function App() {
     if (info.type === "month") return monthCellRender(current);
     return info.originNode;
   };
-
+  const { setOpenModal, setCurrentDate } = useStore();
   return (
-    <>
-      <Calendar
-        mode="month"
-        cellRender={cellRender}
-        defaultValue={undefined}
-        disabledDate={(date) => {
-          return (
-            dayjsLib.isSameOrAfter(date, "date") &&
-            dayjsLib.date() !== date.date()
-          );
-        }}
-      />
-    </>
+    <Calendar
+      cellRender={cellRender}
+      disabledDate={(date) => {
+        return dayjs().isAfter(date);
+      }}
+    />
   );
 }

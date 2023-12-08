@@ -1,6 +1,7 @@
-
+"use client";
 import { FieldType } from "@/@types/types";
 import { useModal } from "@/_hooks/useModal";
+import { useStore } from "@/zustandStore";
 import {
   Button,
   DatePicker,
@@ -10,26 +11,29 @@ import {
   Space,
   TimePicker,
 } from "antd";
+import dayjs from "dayjs";
+import { useMemo } from "react";
 
 export function ModalReservationDay() {
-  const {
-    handleCancel,
-    handleOk,
-    open,
-    showModal,
-    onFinish,
-    onFinishFailed,
-    loading,
-    form,
-  } = useModal();
+  const { currentDate, openModal, setCloseModal } = useStore();
+  const { onFinish, onFinishFailed, loading, form, onReset } = useModal();
+  const now = useMemo(() => dayjs(currentDate), [currentDate]);
 
+  const handleOk = () => {
+    setCloseModal();
+  };
+
+  const handleCancel = () => {
+    setCloseModal();
+
+    onReset();
+  };
+  console.log(currentDate);
   return (
     <>
-      <Button type="primary" ghost size="middle" onClick={showModal}>
-        RESERVAR AMBIENTE
-      </Button>
       <Modal
-        open={open}
+        destroyOnClose
+        open={openModal}
         title="Nova reserva - Sala Circuito 01"
         onOk={handleOk}
         onCancel={handleCancel}
@@ -62,13 +66,21 @@ export function ModalReservationDay() {
             name="data"
             rules={[{ required: true, message: "Coloque uma Data" }]}
           >
-            <DatePicker />
+            <DatePicker
+              defaultValue={now}
+              disabledDate={(date) => date.isBefore() && !date.isToday()}
+              format="DD/MM/YYYY"
+            />
           </Form.Item>
           <Form.Item<FieldType>
             name="time"
             rules={[{ required: true, message: "Coloque um Horário" }]}
           >
-            <TimePicker />
+            <TimePicker.RangePicker
+              minuteStep={5}
+              format={"HH:mm"}
+              defaultValue={[now, now.hour(+1)]}
+            />
           </Form.Item>
           <Space>
             <Button key="back" onClick={handleCancel}>
