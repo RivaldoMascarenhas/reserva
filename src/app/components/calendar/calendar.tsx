@@ -1,8 +1,12 @@
 "use client";
+import { useStore } from "@/zustandStore";
 import type { BadgeProps, CalendarProps } from "antd";
 import { Badge, Calendar } from "antd";
 import type { Dayjs } from "dayjs";
 import dayjs from "dayjs";
+import isToday from "dayjs/plugin/isToday";
+
+dayjs.extend(isToday);
 
 const getListData = (value: Dayjs) => {
   let listData;
@@ -77,13 +81,20 @@ export function App() {
     if (info.type === "month") return monthCellRender(current);
     return info.originNode;
   };
-
+  const { setOpenModal, setCurrentDate } = useStore();
   return (
-    <Calendar
-      cellRender={cellRender}
-      disabledDate={(date) => {
-        return dayjs().isAfter(date);
-      }}
-    />
+    <>
+      <Calendar
+        onSelect={(date) => {
+          const now = dayjs(date).toISOString();
+          setCurrentDate(now);
+          setOpenModal();
+        }}
+        cellRender={cellRender}
+        disabledDate={(date) => {
+          return dayjs().isAfter(date) && !date.isToday();
+        }}
+      />
+    </>
   );
 }
