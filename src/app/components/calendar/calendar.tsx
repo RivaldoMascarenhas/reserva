@@ -1,8 +1,8 @@
 "use client";
+import { dayjsLib } from "@/_lib/dayjs";
 import type { BadgeProps, CalendarProps } from "antd";
 import { Badge, Calendar } from "antd";
-import type { Dayjs } from "dayjs";
-import dayjs from "dayjs";
+import { Dayjs } from "dayjs";
 
 const getListData = (value: Dayjs) => {
   let listData;
@@ -79,11 +79,18 @@ export function App() {
   };
 
   return (
-    <Calendar
-      cellRender={cellRender}
-      disabledDate={(date) => {
-        return dayjs().isAfter(date);
-      }}
-    />
+    <>
+      <Calendar
+        mode="month"
+        cellRender={cellRender}
+        defaultValue={undefined}
+        disabledDate={(date) => {
+          return (
+            dayjsLib.isSameOrAfter(date, "date") &&
+            dayjsLib.date() !== date.date()
+          );
+        }}
+      />
+    </>
   );
 }

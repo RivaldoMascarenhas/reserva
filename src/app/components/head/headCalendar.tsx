@@ -1,11 +1,9 @@
-"use client"
+"use client";
 import { Button, Typography } from "antd";
 import { AvatarHead } from "./components/avatar/avatar";
-import { ModalReservationDay } from "./components/modal/modalReservasionDay";
 import "./headCalendar.css";
 
 export default function HeadCalendar() {
-  
   const date = new Date().toLocaleDateString("pt-BR", { month: "long" });
   const month = date.charAt(0).toLocaleUpperCase() + date.slice(1);
   const { Title, Text } = Typography;
@@ -26,7 +24,6 @@ export default function HeadCalendar() {
       </div>
       <div className="ContainerAvatar">
         <AvatarHead />
-        <ModalReservationDay />
       </div>
     </div>
   );
