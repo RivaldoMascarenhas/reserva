@@ -1,15 +1,19 @@
-import { valuesProps } from "@/@types/types";
 import { prisma } from "@/_lib/prisma";
 import bcrypt from "bcrypt";
 import { NextRequest, NextResponse } from "next/server";
+import { boolean, object, string } from "yup";
 
 export async function POST(req: NextRequest) {
   try {
-    const data: valuesProps = await req.json();
+    const userSchema = object({
+      company: string(),
+      name: string().required(),
+      email: string().required(),
+      password: string().required(),
+      agree: boolean(),
+    });
 
-    if (!data.name || !data.email || !data.password) {
-      return NextResponse.json("Parâmetros inválidos", { status: 400 });
-    }
+    const data = await userSchema.validate(await req.json());
 
     const existingUser = await prisma.user.findUnique({
       where: {

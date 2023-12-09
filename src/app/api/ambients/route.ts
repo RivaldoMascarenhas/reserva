@@ -1,20 +1,78 @@
 import { prisma } from "@/_lib/prisma";
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { object, string } from "yup";
 
-export async function GET(req: Request) {
-  const ambients = await prisma.ambients.findMany({
-    include: { Schedules: true },
-  });
+export async function GET(req: NextRequest) {
+  try {
+    const { searchParams } = req.nextUrl;
+    const search = searchParams.get("q");
+    if (search?.length) {
+      const results = await prisma.ambients.findFirst({
+        where: {
+          title: search,
+        },
+      });
+      return NextResponse.json({ results }, { status: 200 });
+    }
 
-  return Response.json({ ambients });
+    const ambients = await prisma.ambients.findMany({
+      include: { Schedules: true },
+    });
+
+    if (ambients.length === 0) {
+      return NextResponse.json(
+        {
+          message: "Ambientes não encontrados",
+        },
+        { status: 400 }
+      );
+    }
+
+    return NextResponse.json({ ambients });
+  } catch (error) {
+    console.error("Erro durante a requisição:", error);
+    return NextResponse.json(
+      { error: "Erro durante a requisição" },
+      { status: 500 }
+    );
+  }
 }
+
 export async function POST(req: NextRequest) {
-  const data = await req.json();
+  try {
+    const ambientSchema = object({
+      title: string().required("title é obrigatório.").lowercase(),
+    });
+    const ambient = await ambientSchema.validate(await req.json());
 
-  console.log(data);
-  await prisma.ambients.create({
-    data,
-  });
+    const existAmbient = await prisma.ambients.findUnique({
+      where: {
+        title: ambient.title,
+      },
+    });
+    if (existAmbient) {
+      return NextResponse.json("Ambiente já existe!", {
+        status: 400,
+      });
+    }
 
-  return Response.json({}, { status: 201 });
+    await prisma.ambients.create({
+      data: ambient,
+    });
+    return Response.json({}, { status: 201 });
+  } catch (error: any) {
+    console.log("Erro durante a criação do Ambiente:", error.errors);
+    return NextResponse.json(
+      {
+        message: "Erro durante a criação do Ambiente",
+        error: {
+          path: error.inner.map((err: any) => err.path),
+          message: error.inner.map((err: any) => err.message),
+        },
+      },
+      {
+        status: 500,
+      }
+    );
+  }
 }

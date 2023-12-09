@@ -66,19 +66,19 @@ model VerificationRequest {
 }
 
 model Schedules {
-  id                 String   @id @default(cuid())
-  title              String
-  equipment          String?
-  description        String?
-  dateEvent          DateTime
-  dateMinutesInitial DateTime
-  dateMinutesEnd     DateTime
-  Ambients           Ambients @relation(fields: [ambientsId], references: [id])
-  ambientsId         String
+  id               String   @id @default(cuid())
+  title            String
+  equipment        String?
+  description      String?
+  dateEvent        DateTime
+  dateMinutesStart DateTime
+  dateMinutesEnd   DateTime
+  Ambients         Ambients @relation(fields: [ambientsId], references: [id])
+  ambientsId       String
 }
 
 model Ambients {
   id        String      @id @default(cuid())
-  title     String
+  title     String      @unique
   Schedules Schedules[]
 }
