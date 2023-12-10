@@ -1,5 +1,7 @@
 import { FieldType } from "@/@types/types";
-import { Button, Form, Input, Modal, Space, TimePicker } from "antd";
+import { api } from "@/_lib/axios";
+import { useStore } from "@/zustandStore";
+import { Button, Form, Input, Modal, Space } from "antd";
 import { useState } from "react";
 
 interface ModalSidebarProps {
@@ -15,13 +17,23 @@ export function ModalSidebar({
 }: Readonly<ModalSidebarProps>) {
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
+  const { setUpdateAmbients } = useStore();
 
   const onReset = () => {
     form.resetFields();
   };
   const onFinish = (values: FieldType) => {
-    console.log("Success:", values);
     setLoading(true);
+    if (!values.nameReservation) {
+      return;
+    }
+    api
+      .post("/api/ambients", {
+        title: values.nameReservation,
+      })
+      .then((res) => setUpdateAmbients(res.data));
+
+    setLoading(false);
     onOk();
     onReset();
   };
@@ -53,15 +65,6 @@ export function ModalSidebar({
           <Input placeholder="Nome do Ambiente" />
         </Form.Item>
 
-        <Form.Item<FieldType>
-          name="time"
-          label="Horário de Funcionamento"
-          rules={[{ required: true, message: "Coloque um Horário" }]}
-        >
-          <TimePicker.RangePicker
-            placeholder={["Horário inicial", "Horário final"]}
-          />
-        </Form.Item>
         <Space>
           <Button key="back" onClick={onCancel}>
             Return

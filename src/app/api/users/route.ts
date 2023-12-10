@@ -14,6 +14,14 @@ export async function POST(req: NextRequest) {
     });
 
     const data = await userSchema.validate(await req.json());
+    if (!data) {
+      return NextResponse.json(
+        {
+          message: "Preencha todos os campos",
+        },
+        { status: 400 }
+      );
+    }
 
     const existingUser = await prisma.user.findUnique({
       where: {

@@ -1,8 +1,6 @@
 .containerSidebar {
   display: flex;
-
-  height: 98vh;
-
+  height: 100%;
   flex-direction: column;
   padding-bottom: 1rem;
   gap: 1rem;
@@ -14,9 +12,24 @@
       rgba(255, 255, 255, 0) 101.17%
     ),
     #f8f8ff;
+  & > nav {
+    height: 70vh;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #888;
+      border-radius: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: #eee;
+    }
+  }
 }
 .listItemsSidebar {
-  overflow-y: scroll;
   width: 138px;
   display: flex;
   flex-direction: column;
@@ -35,18 +48,7 @@
     onselect: none;
   }
 }
-.listItemsSidebar::-webkit-scrollbar {
-  width: 5px;
-}
 
-.listItemsSidebar::-webkit-scrollbar-thumb {
-  background-color: #888;
-  border-radius: 6px;
-}
-
-.listItemsSidebar::-webkit-scrollbar-track {
-  background-color: #eee;
-}
 .ant-btn-background-ghost {
   &:hover {
     background-color: #1677ff !important;

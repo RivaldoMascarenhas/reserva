@@ -36,7 +36,6 @@ export async function POST(req: NextRequest) {
     });
     return Response.json({}, { status: 201 });
   } catch (error: any) {
-    console.log("Erro durante a criação do Evento:", error.errors);
     return NextResponse.json(
       {
         message: "Erro durante a criação do Evento",

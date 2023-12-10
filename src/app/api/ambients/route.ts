@@ -28,7 +28,7 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    return NextResponse.json({ ambients });
+    return NextResponse.json([...ambients]);
   } catch (error) {
     console.error("Erro durante a requisição:", error);
     return NextResponse.json(
@@ -56,10 +56,10 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    await prisma.ambients.create({
+    const newAmbient = await prisma.ambients.create({
       data: ambient,
     });
-    return Response.json({}, { status: 201 });
+    return Response.json({ ...newAmbient }, { status: 201 });
   } catch (error: any) {
     console.log("Erro durante a criação do Ambiente:", error.errors);
     return NextResponse.json(
