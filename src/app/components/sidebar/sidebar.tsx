@@ -3,30 +3,52 @@ import { api } from "@/_lib/axios";
 import Title from "@/app/components/title/title";
 import { useStore } from "@/zustandStore";
 import { PlusOutlined } from "@ant-design/icons";
-import { Button } from "antd";
-import { useEffect, useState } from "react";
+import { Button, message } from "antd";
+import { useCallback, useEffect, useState } from "react";
 import { ItemSidebar } from "./components/itemSidebar";
 import { ModalSidebar } from "./components/modalSidebar/modalSidebar";
 import "./sidebar.css";
 
 export function Sidebar() {
   const [open, setOpen] = useState(false);
-  const { ambients, setAmbients } = useStore();
+  const [loading, setLoading] = useState(false);
+  const { ambients, setAmbients, setCurrentAmbient } = useStore();
+
+  const loadingAmbients = useCallback(async () => {
+    try {
+      setLoading(true);
+      const { data } = await api.get("api/ambients");
+      setAmbients(data);
+    } catch (error) {
+      message.error("Erro ao buscar os ambientes");
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  }, [setAmbients]);
 
   useEffect(() => {
-    api.get("api/ambients").then((res) => setAmbients(res.data));
-  }, [setAmbients]);
+    loadingAmbients();
+  }, [loadingAmbients]);
 
   return (
     <div className="containerSidebar">
       <Title />
-      <nav>
-        <ul className="listItemsSidebar">
-          {ambients.map((item) => (
-            <ItemSidebar key={item.id} name={item.title} />
-          ))}
-        </ul>
-      </nav>
+      {loading === true && <p>...carregando</p>}
+      {loading === false && (
+        <nav>
+          <ul className="listItemsSidebar">
+            {ambients?.map((item) => (
+              <ItemSidebar
+                key={item.id}
+                name={item.title}
+                onClick={() => setCurrentAmbient(item)}
+              />
+            ))}
+          </ul>
+        </nav>
+      )}
+
       <Button
         type="primary"
         onClick={() => setOpen(true)}

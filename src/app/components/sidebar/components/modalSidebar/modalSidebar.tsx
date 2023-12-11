@@ -31,7 +31,8 @@ export function ModalSidebar({
       .post("/api/ambients", {
         title: values.nameReservation,
       })
-      .then((res) => setUpdateAmbients(res.data));
+      .then((res) => setUpdateAmbients(res.data))
+      .catch((error) => console.error(error));
 
     setLoading(false);
     onOk();

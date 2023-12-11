@@ -15,12 +15,17 @@ interface ambient {
   title: string;
   schedules?: schedules[];
 }
-
+interface currentAmbient {
+  id: string;
+  title: string;
+}
 interface StoreTypes {
   openModalCalendar: boolean;
   modalAmbientOpen: boolean;
   currentDate: Dayjs;
   ambients: ambient[];
+  currentAmbient: currentAmbient | null;
+  setCurrentAmbient: (ambient: currentAmbient) => void;
   setOpenModal: () => void;
   setCloseModal: () => void;
   setCurrentDate: (date?: Dayjs) => void;
@@ -32,9 +37,11 @@ interface StoreTypes {
 
 export const useStore = create<StoreTypes>((set) => ({
   ambients: [],
+  currentAmbient: null,
   openModalCalendar: false,
   modalAmbientOpen: false,
   currentDate: dayjs(),
+  setCurrentAmbient: (ambient) => set({ currentAmbient: ambient }),
   setOpenModalAmbient: () => set({ modalAmbientOpen: true }),
   setCloseModalAmbient: () => set({ modalAmbientOpen: false }),
   setOpenModal: () => set({ openModalCalendar: true }),

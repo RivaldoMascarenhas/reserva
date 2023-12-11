@@ -20,15 +20,10 @@ export async function GET(req: NextRequest) {
     });
 
     if (ambients.length === 0) {
-      return NextResponse.json(
-        {
-          message: "Ambientes não encontrados",
-        },
-        { status: 400 }
-      );
+      return NextResponse.json([], { status: 200 });
     }
 
-    return NextResponse.json([...ambients]);
+    return NextResponse.json(ambients, { status: 200 });
   } catch (error) {
     console.error("Erro durante a requisição:", error);
     return NextResponse.json(

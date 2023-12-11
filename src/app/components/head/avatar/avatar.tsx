@@ -5,8 +5,8 @@ import "./style.css";
 
 export function AvatarHead() {
   const { data, status } = useSession();
-
   const [first = "", last = ""] = data?.user?.name.split(" ") ?? [];
+  const loading = status === "loading";
   const firstName = first[0]
     ?.toLocaleUpperCase()
     .concat(first.slice(1).toLowerCase());
@@ -29,23 +29,23 @@ export function AvatarHead() {
   };
   return (
     <Row>
-      <Spin spinning={status === "loading"}>
-        <Space>
-          <span className="name">{firstName + " " + lastName} </span>
+      <Space>
+        <p className="name">{loading ? "" : firstName + " " + lastName} </p>
+        <Spin size="small" spinning={loading}>
           <Avatar className="avatar" src={data?.user?.image} size={40} />
-        </Space>
-        <Dropdown trigger={["click"]} menu={menuProps}>
-          <Button
-            style={{
-              border: "none",
-              height: "50%",
-              boxShadow: "none",
-            }}
-          >
-            <DownOutlined />
-          </Button>
-        </Dropdown>
-      </Spin>
+        </Spin>
+      </Space>
+      <Dropdown disabled={loading} trigger={["click"]} menu={menuProps}>
+        <Button
+          style={{
+            border: "none",
+            height: "50%",
+            boxShadow: "none",
+          }}
+        >
+          <DownOutlined />
+        </Button>
+      </Dropdown>
     </Row>
   );
 }
