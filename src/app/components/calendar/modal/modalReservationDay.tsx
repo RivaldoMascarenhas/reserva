@@ -21,7 +21,7 @@ interface ModalReservationDayProps {
 export function ModalReservationDay({
   open,
   setOpen,
-}: ModalReservationDayProps) {
+}: Readonly<ModalReservationDayProps>) {
   const { currentDate } = useStore();
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
