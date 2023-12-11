@@ -1,4 +1,4 @@
-import { DownOutlined, LogoutOutlined } from "@ant-design/icons";
+import { DownOutlined, LogoutOutlined, UserOutlined } from "@ant-design/icons";
 import { Avatar, Button, Dropdown, MenuProps, Row, Space, Spin } from "antd";
 import { signOut, useSession } from "next-auth/react";
 import "./style.css";
@@ -7,6 +7,7 @@ export function AvatarHead() {
   const { data, status } = useSession();
   const [first = "", last = ""] = data?.user?.name.split(" ") ?? [];
   const loading = status === "loading";
+  const img = data?.user?.image;
   const firstName = first[0]
     ?.toLocaleUpperCase()
     .concat(first.slice(1).toLowerCase());
@@ -27,12 +28,18 @@ export function AvatarHead() {
   const menuProps = {
     items,
   };
+  console.log(data);
   return (
     <Row>
       <Space>
         <p className="name">{loading ? "" : firstName + " " + lastName} </p>
         <Spin size="small" spinning={loading}>
-          <Avatar className="avatar" src={data?.user?.image} size={40} />
+          <Avatar
+            className="avatar"
+            src={img}
+            size={40}
+            icon={img === null && <UserOutlined />}
+          />
         </Spin>
       </Space>
       <Dropdown disabled={loading} trigger={["click"]} menu={menuProps}>

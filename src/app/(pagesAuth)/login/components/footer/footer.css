@@ -19,5 +19,15 @@
 }
 .iconsFooter {
   display: flex;
+  cursor: pointer;
   gap: 1.5rem;
+
+  & > svg {
+    border: 1px solid transparent;
+    padding: 0.5rem;
+    border-radius: 8px;
+  }
+  & > svg:hover {
+    border-color: #6ba4ff;
+  }
 }
