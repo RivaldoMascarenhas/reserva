@@ -4,7 +4,8 @@ import type { BadgeProps, CalendarProps } from "antd";
 import { Badge, Calendar } from "antd";
 import dayjs, { Dayjs } from "dayjs";
 import isToday from "dayjs/plugin/isToday";
-import { ModalReservationDay } from "./modal/modalReservasionDay";
+import { useState } from "react";
+import { ModalReservationDay } from "./modal/modalReservationDay";
 
 dayjs.extend(isToday);
 
@@ -50,6 +51,9 @@ const getMonthData = (value: Dayjs) => {
 };
 
 export function App() {
+  const [open, setOpen] = useState(false);
+  const { setCurrentDate, currentAmbient } = useStore();
+
   const monthCellRender = (value: Dayjs) => {
     const num = getMonthData(value);
     return num ? (
@@ -81,7 +85,7 @@ export function App() {
     if (info.type === "month") return monthCellRender(current);
     return info.originNode;
   };
-  const { setOpenModal, setCurrentDate } = useStore();
+
   return (
     <>
       <Calendar
@@ -90,15 +94,18 @@ export function App() {
           if (source !== "date") {
             return;
           }
-
           setCurrentDate(date);
-          setOpenModal();
+          setOpen(true);
         }}
         disabledDate={(date) => {
-          return dayjs().isAfter(date) && !date.isToday();
+          if (!currentAmbient) {
+            return true;
+          } else {
+            return dayjs().isAfter(date) && !date.isToday();
+          }
         }}
       />
-      <ModalReservationDay />
+      <ModalReservationDay open={open} setOpen={setOpen} />
     </>
   );
 }

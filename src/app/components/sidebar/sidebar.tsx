@@ -1,10 +1,10 @@
 "use client";
 import { api } from "@/_lib/axios";
-import Title from "@/app/components/title/title";
 import { useStore } from "@/zustandStore";
 import { PlusOutlined } from "@ant-design/icons";
-import { Button, message } from "antd";
+import { Button, Typography, message } from "antd";
 import { useCallback, useEffect, useState } from "react";
+import Title from "../title/title";
 import { ItemSidebar } from "./components/itemSidebar";
 import { ModalSidebar } from "./components/modalSidebar/modalSidebar";
 import "./sidebar.css";
@@ -13,6 +13,7 @@ export function Sidebar() {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const { ambients, setAmbients, setCurrentAmbient } = useStore();
+  const T = Typography;
 
   const loadingAmbients = useCallback(async () => {
     try {
@@ -34,11 +35,20 @@ export function Sidebar() {
   return (
     <div className="containerSidebar">
       <Title />
-      {loading === true && <p>...carregando</p>}
-      {loading === false && (
+      {loading === true && (
+        <T.Text strong color="#ccc">
+          ...carregando
+        </T.Text>
+      )}
+      {ambients.length === 0 && loading === false && (
+        <T.Text strong color="#ccc">
+          Crie um novo Ambiente
+        </T.Text>
+      )}
+      {ambients.length > 0 && (
         <nav>
           <ul className="listItemsSidebar">
-            {ambients?.map((item) => (
+            {ambients.map((item) => (
               <ItemSidebar
                 key={item.id}
                 name={item.title}

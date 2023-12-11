@@ -1,7 +1,7 @@
 import { FieldType } from "@/@types/types";
 import { api } from "@/_lib/axios";
 import { useStore } from "@/zustandStore";
-import { Button, Form, Input, Modal, Space } from "antd";
+import { Button, Form, Input, Modal, Space, message } from "antd";
 import { useState } from "react";
 
 interface ModalSidebarProps {
@@ -32,14 +32,14 @@ export function ModalSidebar({
         title: values.nameReservation,
       })
       .then((res) => setUpdateAmbients(res.data))
-      .catch((error) => console.error(error));
+      .catch((error) => message.error(error));
 
     setLoading(false);
     onOk();
     onReset();
   };
   const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo.message);
+    message.error(errorInfo);
   };
 
   return (

@@ -34,7 +34,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 2rem;
+  gap: 1rem;
   padding-inline: 0;
   list-style: none;
   color: #616161;
@@ -45,7 +45,18 @@
   & > li {
     width: 110px;
     cursor: pointer;
-    onselect: none;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    user-select: none;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  & > li:hover {
+    background: #ccc;
   }
 }
 

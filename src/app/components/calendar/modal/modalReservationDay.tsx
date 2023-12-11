@@ -1,6 +1,5 @@
 "use client";
 import { FieldType } from "@/@types/types";
-import { useModal } from "@/_hooks/useModal";
 import { useStore } from "@/zustandStore";
 import {
   Button,
@@ -12,28 +11,49 @@ import {
   TimePicker,
 } from "antd";
 import TextArea from "antd/es/input/TextArea";
+import { useState } from "react";
 
-export function ModalReservationDay() {
-  const { currentDate, openModalCalendar, setCloseModal } = useStore();
-  const { onFinish, onFinishFailed, loading, form, onReset } = useModal();
+interface ModalReservationDayProps {
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-  const handleOk = () => {
-    setCloseModal();
+export function ModalReservationDay({
+  open,
+  setOpen,
+}: ModalReservationDayProps) {
+  const { currentDate } = useStore();
+  const [loading, setLoading] = useState(false);
+  const [form] = Form.useForm();
+
+  const onReset = () => {
+    form.resetFields();
   };
 
-  const handleCancel = () => {
-    setCloseModal();
+  const onFinish = (values: FieldType) => {
+    setLoading(true);
 
+    console.log("Success:", values);
+
+    setOpen(false);
+    setLoading(false);
     onReset();
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log("Failed:", errorInfo.message);
   };
 
   return (
     <Modal
       destroyOnClose
-      open={openModalCalendar}
+      open={open}
       title="Nova reserva - Sala Circuito 01"
-      onOk={handleOk}
-      onCancel={handleCancel}
+      onOk={() => setOpen(false)}
+      onCancel={() => {
+        setOpen(false);
+        onReset();
+      }}
       footer
     >
       <Form
@@ -66,7 +86,6 @@ export function ModalReservationDay() {
           <TextArea rows={4} placeholder="Descrição do evento!" />
         </Form.Item>
         <Form.Item<FieldType>
-          initialValue={currentDate}
           name="data"
           rules={[{ required: true, message: "Coloque uma Data" }]}
         >
@@ -88,7 +107,7 @@ export function ModalReservationDay() {
           />
         </Form.Item>
         <Space>
-          <Button key="back" onClick={handleCancel}>
+          <Button key="back" onClick={() => setOpen(false)}>
             Return
           </Button>
 
