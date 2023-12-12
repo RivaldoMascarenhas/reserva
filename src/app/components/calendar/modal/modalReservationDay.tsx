@@ -32,30 +32,26 @@ export function ModalReservationDay({
     form.resetFields();
   };
 
-  const onFinish = (values: FieldType) => {
+  const onFinish = async (values: FieldType) => {
     setLoading(true);
-    console.log({
-      ...values,
-      dateMinutesStart: values.time[0],
-      dateMinutesEnd: values.time[1],
-      ambientsId: currentAmbient?.id,
-    });
     try {
-      const newSchedule = async () => {
-        await api.post("api/schedules", {
-          title: values.title,
-          equipment: values.equipment,
-          description: values.description,
-          dateEvent: values.dateEvent,
-          dateMinutesStart: values.time[0],
-          dateMinutesEnd: values.time[1],
-          ambientsId: currentAmbient?.id,
-        });
-      };
-      newSchedule();
+      await api.post("api/schedules", {
+        title: values.title,
+        equipment: values.equipment,
+        description: values.description,
+        dateEvent: values.dateEvent,
+        dateMinutesStart: values.time[0],
+        dateMinutesEnd: values.time[1],
+        ambientsId: currentAmbient?.id,
+      });
+      message.success("Evento criado com sucesso!", 1);
     } catch (error: any) {
       console.error(error);
-      message.error(error.error.message);
+      message.error(
+        error.error.message(
+          "Falha ao criar Ambiente, por favor tentar novamente!"
+        )
+      );
     }
     setLoading(false);
     setOpen(false);

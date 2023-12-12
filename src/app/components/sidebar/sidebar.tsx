@@ -25,6 +25,7 @@ export function Sidebar() {
       console.log(error);
     } finally {
       setLoading(false);
+      message.success("Ambientes carregados!", 1);
     }
   }, [setAmbients]);
 

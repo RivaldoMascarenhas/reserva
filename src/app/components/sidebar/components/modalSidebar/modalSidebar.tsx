@@ -22,17 +22,21 @@ export function ModalSidebar({
   const onReset = () => {
     form.resetFields();
   };
-  const onFinish = (values: FieldType) => {
+  const onFinish = async (values: FieldType) => {
     setLoading(true);
     if (!values) {
       return;
     }
-    api
-      .post("/api/ambients", {
+    try {
+      const { data } = await api.post("/api/ambients", {
         title: values.title,
-      })
-      .then((res) => setUpdateAmbients(res.data))
-      .catch((error) => message.error(error));
+      });
+      setUpdateAmbients(data);
+      message.success("Ambiente criado com sucesso!", 1);
+    } catch (error: any) {
+      console.error(error);
+      message.error(error.message);
+    }
 
     setLoading(false);
     onOk();
