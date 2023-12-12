@@ -28,7 +28,6 @@ export function AvatarHead() {
   const menuProps = {
     items,
   };
-  console.log(data);
   return (
     <Row>
       <Space>

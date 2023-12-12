@@ -15,17 +15,14 @@ interface ambient {
   title: string;
   schedules?: schedules[];
 }
-interface currentAmbient {
-  id: string;
-  title: string;
-}
+
 interface StoreTypes {
   openModalCalendar: boolean;
   modalAmbientOpen: boolean;
   currentDate: Dayjs;
   ambients: ambient[];
-  currentAmbient: currentAmbient | null;
-  setCurrentAmbient: (ambient: currentAmbient) => void;
+  currentAmbient: ambient | null;
+  setCurrentAmbient: (ambient: ambient) => void;
   setOpenModal: () => void;
   setCloseModal: () => void;
   setCurrentDate: (date?: Dayjs) => void;

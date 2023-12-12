@@ -7,6 +7,7 @@ import "./headCalendar.css";
 export default function HeadCalendar() {
   const { currentAmbient } = useStore();
   const { Title, Text } = Typography;
+
   return (
     <div className="ContainerHead">
       <div>

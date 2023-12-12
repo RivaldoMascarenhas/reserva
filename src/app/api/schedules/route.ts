@@ -16,7 +16,9 @@ export async function POST(req: NextRequest) {
       ambientsId: string().required("Id do ambiente é obrigatório."),
     });
 
-    const schedule = await schedulesSchema.validate(await req.json());
+    const schedule = await schedulesSchema.validate(await req.json(), {
+      abortEarly: false,
+    });
 
     await prisma.schedules.create({
       data: schedule,
@@ -24,10 +26,9 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ status: 201 });
   } catch (error: any) {
-    console.error(error);
     return NextResponse.json(
       {
-        message: "Erro durante a criação do Evento",
+        message: "Erro durante a criação do Ambiente",
         error: {
           path: error.inner.map((err: any) => err.path),
           message: error.inner.map((err: any) => err.message),

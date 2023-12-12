@@ -1,5 +1,6 @@
 "use client";
 import { FieldType } from "@/@types/types";
+import { api } from "@/_lib/axios";
 import { useStore } from "@/zustandStore";
 import {
   Button,
@@ -9,6 +10,7 @@ import {
   Modal,
   Space,
   TimePicker,
+  message,
 } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { useState } from "react";
@@ -22,7 +24,7 @@ export function ModalReservationDay({
   open,
   setOpen,
 }: Readonly<ModalReservationDayProps>) {
-  const { currentDate } = useStore();
+  const { currentDate, currentAmbient } = useStore();
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
 
@@ -32,11 +34,31 @@ export function ModalReservationDay({
 
   const onFinish = (values: FieldType) => {
     setLoading(true);
-
-    console.log("Success:", values);
-
-    setOpen(false);
+    console.log({
+      ...values,
+      dateMinutesStart: values.time[0],
+      dateMinutesEnd: values.time[1],
+      ambientsId: currentAmbient?.id,
+    });
+    try {
+      const newSchedule = async () => {
+        await api.post("api/schedules", {
+          title: values.title,
+          equipment: values.equipment,
+          description: values.description,
+          dateEvent: values.dateEvent,
+          dateMinutesStart: values.time[0],
+          dateMinutesEnd: values.time[1],
+          ambientsId: currentAmbient?.id,
+        });
+      };
+      newSchedule();
+    } catch (error: any) {
+      console.error(error);
+      message.error(error.error.message);
+    }
     setLoading(false);
+    setOpen(false);
     onReset();
   };
 
@@ -63,7 +85,7 @@ export function ModalReservationDay({
         onFinishFailed={onFinishFailed}
       >
         <Form.Item<FieldType>
-          name="nameReservation"
+          name="title"
           rules={[{ required: true, message: "Coloque um título!" }]}
         >
           <Input placeholder="Título da Reserva" />
@@ -86,7 +108,7 @@ export function ModalReservationDay({
           <TextArea rows={4} placeholder="Descrição do evento!" />
         </Form.Item>
         <Form.Item<FieldType>
-          name="data"
+          name="dateEvent"
           rules={[{ required: true, message: "Coloque uma Data" }]}
         >
           <DatePicker

@@ -16,7 +16,7 @@ export async function GET(req: NextRequest) {
     }
 
     const ambients = await prisma.ambients.findMany({
-      include: { Schedules: true },
+      include: { schedules: true },
     });
 
     if (ambients.length === 0) {

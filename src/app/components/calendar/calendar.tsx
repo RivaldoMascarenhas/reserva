@@ -2,6 +2,8 @@
 import { useStore } from "@/zustandStore";
 import type { BadgeProps, CalendarProps } from "antd";
 import { Badge, Calendar } from "antd";
+import { PickerLocale } from "antd/es/date-picker/generatePicker";
+import locale from "antd/locale/pt_BR";
 import dayjs, { Dayjs } from "dayjs";
 import isToday from "dayjs/plugin/isToday";
 import { useState } from "react";
@@ -10,6 +12,8 @@ import { ModalReservationDay } from "./modal/modalReservationDay";
 dayjs.extend(isToday);
 
 const getListData = (value: Dayjs) => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const { currentAmbient } = useStore();
   let listData;
   switch (value.date()) {
     case 8:
@@ -90,6 +94,7 @@ export function App() {
     <>
       <Calendar
         cellRender={cellRender}
+        locale={locale.Calendar as PickerLocale}
         onSelect={(date, { source }) => {
           if (source !== "date") {
             return;

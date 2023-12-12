@@ -1,9 +1,12 @@
+interface timeProps {
+  timeMinutes: Date;
+}
 export type FieldType = {
-  nameReservation?: string;
-  equipment?: string;
-  data?: Date;
-  time?: Date;
-  description?: string;
+  title: string;
+  equipment: string | undefined;
+  description: string | undefined;
+  dateEvent: Date;
+  time: timeProps[];
 };
 export interface valuesProps {
   company: string;

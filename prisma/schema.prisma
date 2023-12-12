@@ -73,12 +73,16 @@ model Schedules {
   dateEvent        DateTime
   dateMinutesStart DateTime
   dateMinutesEnd   DateTime
-  Ambients         Ambients @relation(fields: [ambientsId], references: [id])
+  ambients         Ambients @relation(fields: [ambientsId], references: [id])
   ambientsId       String
+
+  @@map("schedules")
 }
 
 model Ambients {
   id        String      @id @default(cuid())
   title     String      @unique
-  Schedules Schedules[]
+  schedules Schedules[]
+
+  @@map("ambients")
 }

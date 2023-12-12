@@ -24,12 +24,12 @@ export function ModalSidebar({
   };
   const onFinish = (values: FieldType) => {
     setLoading(true);
-    if (!values.nameReservation) {
+    if (!values) {
       return;
     }
     api
       .post("/api/ambients", {
-        title: values.nameReservation,
+        title: values.title,
       })
       .then((res) => setUpdateAmbients(res.data))
       .catch((error) => message.error(error));
@@ -45,7 +45,7 @@ export function ModalSidebar({
   return (
     <Modal
       open={open}
-      title="Nova reserva - Sala Circuito 01"
+      title="Novo Ambiente"
       onOk={onOk}
       onCancel={() => {
         onReset();
@@ -60,7 +60,7 @@ export function ModalSidebar({
         onFinishFailed={onFinishFailed}
       >
         <Form.Item<FieldType>
-          name="nameReservation"
+          name="title"
           rules={[{ required: true, message: "Coloque o nome do ambiente." }]}
         >
           <Input placeholder="Nome do Ambiente" />
