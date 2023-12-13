@@ -1,7 +1,7 @@
 "use client";
 import { FieldType } from "@/@types/types";
 import { api } from "@/_lib/axios";
-import { useStore } from "@/zustandStore";
+import { schedules, useStore } from "@/zustandStore";
 import {
   Button,
   DatePicker,
@@ -24,7 +24,7 @@ export function ModalReservationDay({
   open,
   setOpen,
 }: Readonly<ModalReservationDayProps>) {
-  const { currentDate, currentAmbient } = useStore();
+  const { currentDate, currentAmbient, setNewSchedule } = useStore();
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
 
@@ -35,7 +35,7 @@ export function ModalReservationDay({
   const onFinish = async (values: FieldType) => {
     setLoading(true);
     try {
-      await api.post("api/schedules", {
+      const newSchedule: schedules = await api.post("api/schedules", {
         title: values.title,
         equipment: values.equipment,
         description: values.description,
@@ -44,6 +44,8 @@ export function ModalReservationDay({
         dateMinutesEnd: values.time[1],
         ambientsId: currentAmbient?.id,
       });
+      console.log(newSchedule);
+      setNewSchedule(newSchedule);
       message.success("Evento criado com sucesso!", 1);
     } catch (error: any) {
       console.error(error);
@@ -108,7 +110,6 @@ export function ModalReservationDay({
           rules={[{ required: true, message: "Coloque uma Data" }]}
         >
           <DatePicker
-            defaultValue={currentDate}
             disabledDate={(date) => date.isBefore() && !date.isToday()}
             format="DD/MM/YYYY"
           />

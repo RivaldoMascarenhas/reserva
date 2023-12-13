@@ -1,7 +1,7 @@
 import dayjs, { Dayjs } from "dayjs";
 import { create } from "zustand";
 
-interface schedules {
+export interface schedules {
   id: number;
   title: string;
   equipment?: string;
@@ -13,38 +13,35 @@ interface schedules {
 interface ambient {
   id: string;
   title: string;
-  schedules?: schedules[];
+  schedules: schedules[];
 }
 
 interface StoreTypes {
-  openModalCalendar: boolean;
-  modalAmbientOpen: boolean;
   currentDate: Dayjs;
   ambients: ambient[];
-  currentAmbient: ambient | null;
+  currentAmbient: ambient;
   setCurrentAmbient: (ambient: ambient) => void;
-  setOpenModal: () => void;
-  setCloseModal: () => void;
   setCurrentDate: (date?: Dayjs) => void;
-  setOpenModalAmbient: () => void;
-  setCloseModalAmbient: () => void;
   setUpdateAmbients: (ambient: ambient) => void;
   setAmbients: (newAmbients: ambient[]) => void;
+  setNewSchedule: (schedule: schedules) => void;
 }
 
-export const useStore = create<StoreTypes>((set) => ({
+export const useStore = create<StoreTypes>((set, get) => ({
   ambients: [],
-  currentAmbient: null,
-  openModalCalendar: false,
-  modalAmbientOpen: false,
+  currentAmbient: {} as ambient,
   currentDate: dayjs(),
   setCurrentAmbient: (ambient) => set({ currentAmbient: ambient }),
-  setOpenModalAmbient: () => set({ modalAmbientOpen: true }),
-  setCloseModalAmbient: () => set({ modalAmbientOpen: false }),
-  setOpenModal: () => set({ openModalCalendar: true }),
-  setCloseModal: () => set({ openModalCalendar: false }),
   setCurrentDate: (date) => set({ currentDate: date }),
   setAmbients: (newAmbients) => set({ ambients: newAmbients }),
   setUpdateAmbients: (ambient) =>
     set((state) => ({ ambients: [...state.ambients, ambient] })),
+  setNewSchedule: (schedule) =>
+    set((state) => ({
+      currentAmbient: {
+        id: state.currentAmbient.id,
+        title: state.currentAmbient.title,
+        schedules: [...state.currentAmbient.schedules, schedule],
+      },
+    })),
 }));

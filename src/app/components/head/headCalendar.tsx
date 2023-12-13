@@ -11,9 +11,9 @@ export default function HeadCalendar() {
   return (
     <div className="ContainerHead">
       <div>
-        <Title level={4} disabled={!currentAmbient}>
+        <Title level={4} disabled={!currentAmbient.title}>
           AGENDA DO AMBIENTE{" "}
-          {currentAmbient && (
+          {currentAmbient.title && (
             <Text style={{ color: "blue", fontSize: "1.25rem" }}>
               {"- " + currentAmbient.title.toLocaleUpperCase()}
             </Text>

@@ -1,7 +1,7 @@
 "use client";
 import { useStore } from "@/zustandStore";
-import type { BadgeProps, CalendarProps } from "antd";
-import { Badge, Calendar } from "antd";
+import type { CalendarProps } from "antd";
+import { Calendar } from "antd";
 import { PickerLocale } from "antd/es/date-picker/generatePicker";
 import locale from "antd/locale/pt_BR";
 import dayjs, { Dayjs } from "dayjs";
@@ -10,43 +10,6 @@ import { useState } from "react";
 import { ModalReservationDay } from "./modal/modalReservationDay";
 
 dayjs.extend(isToday);
-
-const getListData = (value: Dayjs) => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const { currentAmbient } = useStore();
-  let listData;
-  switch (value.date()) {
-    case 8:
-      listData = [
-        {
-          type: "warning",
-          content: "This is warning event.",
-          day: value.date(),
-        },
-        { type: "success", content: "This is usual event.", day: value.date() },
-      ];
-      break;
-    case 10:
-      listData = [
-        { type: "warning", content: "This is warning event." },
-        { type: "success", content: "This is usual event." },
-        { type: "error", content: "This is error event." },
-      ];
-      break;
-    case 15:
-      listData = [
-        { type: "warning", content: "This is warning event" },
-        { type: "success", content: "This is very long usual event......" },
-        { type: "error", content: "This is error event 1." },
-        { type: "error", content: "This is error event 2." },
-        { type: "error", content: "This is error event 3." },
-        { type: "error", content: "This is error event 4." },
-      ];
-      break;
-    default:
-  }
-  return listData || [];
-};
 
 const getMonthData = (value: Dayjs) => {
   if (value.month() === 8) {
@@ -69,22 +32,20 @@ export function App() {
   };
 
   const dateCellRender = (value: Dayjs) => {
-    const listData = getListData(value);
+    const listData = currentAmbient.schedules?.filter(
+      (i) => dayjs(i.dateEvent).date() === value.date()
+    );
     return (
       <ul className="events">
-        {listData.map((item) => (
-          <li key={item.content}>
-            <Badge
-              status={item.type as BadgeProps["status"]}
-              text={item.content}
-            />
-          </li>
+        {listData?.map((item) => (
+          <li key={item.id}>{item.title}</li>
         ))}
       </ul>
     );
   };
 
   const cellRender: CalendarProps<Dayjs>["cellRender"] = (current, info) => {
+    currentAmbient ? "" : "rivaldo";
     if (info.type === "date") return dateCellRender(current);
     if (info.type === "month") return monthCellRender(current);
     return info.originNode;
