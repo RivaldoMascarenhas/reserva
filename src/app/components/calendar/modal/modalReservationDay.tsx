@@ -44,7 +44,6 @@ export function ModalReservationDay({
         dateMinutesEnd: values.time[1],
         ambientsId: currentAmbient?.id,
       });
-      console.log(newSchedule);
       setNewSchedule(newSchedule);
       message.success("Evento criado com sucesso!", 1);
     } catch (error: any) {
@@ -135,7 +134,6 @@ export function ModalReservationDay({
             htmlType="submit"
             type="primary"
             loading={loading}
-            onClick={() => onFinish}
           >
             Submit
           </Button>

@@ -45,7 +45,6 @@ export function App() {
   };
 
   const cellRender: CalendarProps<Dayjs>["cellRender"] = (current, info) => {
-    currentAmbient ? "" : "rivaldo";
     if (info.type === "date") return dateCellRender(current);
     if (info.type === "month") return monthCellRender(current);
     return info.originNode;

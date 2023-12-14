@@ -34,14 +34,20 @@ export const useStore = create<StoreTypes>((set, get) => ({
   setCurrentAmbient: (ambient) => set({ currentAmbient: ambient }),
   setCurrentDate: (date) => set({ currentDate: date }),
   setAmbients: (newAmbients) => set({ ambients: newAmbients }),
-  setUpdateAmbients: (ambient) =>
-    set((state) => ({ ambients: [...state.ambients, ambient] })),
-  setNewSchedule: (schedule) =>
+  setUpdateAmbients: (ambient) => {
+    set((state) => ({
+      ambients: [...state.ambients.filter((a) => a.id !== ambient.id), ambient],
+    }));
+  },
+  setNewSchedule: (schedule) => {
     set((state) => ({
       currentAmbient: {
-        id: state.currentAmbient.id,
-        title: state.currentAmbient.title,
-        schedules: [...state.currentAmbient.schedules, schedule],
+        ...state.currentAmbient,
+        schedules: [
+          ...state.currentAmbient.schedules.filter((a) => a.id !== schedule.id),
+          schedule,
+        ],
       },
-    })),
+    }));
+  },
 }));
