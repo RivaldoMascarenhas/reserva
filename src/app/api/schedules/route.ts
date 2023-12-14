@@ -20,11 +20,11 @@ export async function POST(req: NextRequest) {
       abortEarly: false,
     });
 
-    await prisma.schedules.create({
+    const newSchedules = await prisma.schedules.create({
       data: schedule,
     });
 
-    return NextResponse.json({ status: 201 });
+    return NextResponse.json(newSchedules, { status: 201 });
   } catch (error: any) {
     return NextResponse.json(
       {

@@ -63,7 +63,7 @@ export function App() {
           setOpen(true);
         }}
         disabledDate={(date) => {
-          if (!currentAmbient) {
+          if (!Object.keys(currentAmbient).length) {
             return true;
           } else {
             return dayjs().isAfter(date) && !date.isToday();

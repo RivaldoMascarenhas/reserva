@@ -1,7 +1,7 @@
 import dayjs, { Dayjs } from "dayjs";
 import { create } from "zustand";
 
-export interface schedules {
+export interface Schedules {
   id: number;
   title: string;
   equipment?: string;
@@ -13,7 +13,7 @@ export interface schedules {
 interface ambient {
   id: string;
   title: string;
-  schedules: schedules[];
+  schedules: Schedules[];
 }
 
 interface StoreTypes {
@@ -24,7 +24,7 @@ interface StoreTypes {
   setCurrentDate: (date?: Dayjs) => void;
   setUpdateAmbients: (ambient: ambient) => void;
   setAmbients: (newAmbients: ambient[]) => void;
-  setNewSchedule: (schedule: schedules) => void;
+  setNewSchedule: (schedule: Schedules) => void;
 }
 
 export const useStore = create<StoreTypes>((set, get) => ({
@@ -40,13 +40,12 @@ export const useStore = create<StoreTypes>((set, get) => ({
     }));
   },
   setNewSchedule: (schedule) => {
+    console.log(schedule);
+
     set((state) => ({
       currentAmbient: {
         ...state.currentAmbient,
-        schedules: [
-          ...state.currentAmbient.schedules.filter((a) => a.id !== schedule.id),
-          schedule,
-        ],
+        schedules: [...state.currentAmbient.schedules, schedule],
       },
     }));
   },

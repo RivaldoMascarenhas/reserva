@@ -1,17 +1,8 @@
 "use client";
 import { FieldType } from "@/@types/types";
 import { api } from "@/_lib/axios";
-import { schedules, useStore } from "@/zustandStore";
-import {
-  Button,
-  DatePicker,
-  Form,
-  Input,
-  Modal,
-  Space,
-  TimePicker,
-  message,
-} from "antd";
+import { Schedules, useStore } from "@/zustandStore";
+import { Button, Form, Input, Modal, Space, TimePicker, message } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { useState } from "react";
 
@@ -27,6 +18,9 @@ export function ModalReservationDay({
   const { currentDate, currentAmbient, setNewSchedule } = useStore();
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
+  const infoModal = `Nova reserva - ${currentAmbient?.title?.toUpperCase()} - ${currentDate.format(
+    "DD/MM/YYYY"
+  )}`;
 
   const onReset = () => {
     form.resetFields();
@@ -35,16 +29,16 @@ export function ModalReservationDay({
   const onFinish = async (values: FieldType) => {
     setLoading(true);
     try {
-      const newSchedule: schedules = await api.post("api/schedules", {
+      const newSchedule = await api.post<Schedules>("api/schedules", {
         title: values.title,
         equipment: values.equipment,
         description: values.description,
-        dateEvent: values.dateEvent,
+        dateEvent: currentDate,
         dateMinutesStart: values.time[0],
         dateMinutesEnd: values.time[1],
         ambientsId: currentAmbient?.id,
       });
-      setNewSchedule(newSchedule);
+      setNewSchedule(newSchedule.data);
       message.success("Evento criado com sucesso!", 1);
     } catch (error: any) {
       console.error(error);
@@ -67,7 +61,7 @@ export function ModalReservationDay({
     <Modal
       destroyOnClose
       open={open}
-      title="Nova reserva - Sala Circuito 01"
+      title={infoModal}
       onOk={() => setOpen(false)}
       onCancel={() => {
         setOpen(false);
@@ -100,29 +94,22 @@ export function ModalReservationDay({
         </Form.Item>
         <Form.Item<FieldType>
           name="description"
-          rules={[{ required: true, message: "Escolha um número!" }]}
+          rules={[
+            {
+              required: true,
+              message: "Escreva uma breve descrição do evento!",
+            },
+          ]}
         >
           <TextArea rows={4} placeholder="Descrição do evento!" />
         </Form.Item>
-        <Form.Item<FieldType>
-          name="dateEvent"
-          rules={[{ required: true, message: "Coloque uma Data" }]}
-        >
-          <DatePicker
-            disabledDate={(date) => date.isBefore() && !date.isToday()}
-            format="DD/MM/YYYY"
-          />
-        </Form.Item>
+
         <Form.Item<FieldType>
           initialValue={[currentDate, currentDate.add(1, "hour")]}
           name="time"
           rules={[{ required: true, message: "Coloque um Horário" }]}
         >
-          <TimePicker.RangePicker
-            minuteStep={5}
-            format={"HH:mm"}
-            defaultValue={[currentDate, currentDate.add(1, "hour")]}
-          />
+          <TimePicker.RangePicker minuteStep={5} format={"HH:mm"} />
         </Form.Item>
         <Space>
           <Button key="back" onClick={() => setOpen(false)}>
