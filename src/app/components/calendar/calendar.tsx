@@ -18,7 +18,7 @@ const getMonthData = (value: Dayjs) => {
 
 export function App() {
   const { setCurrentDate, currentAmbient } = useStore();
-  const thereIsCurrentDate = !Object.keys(currentAmbient).length;
+  const thereIsCurrentDate = Object.keys(currentAmbient).length;
 
   const onSelectDate = (date: Dayjs, { source }: SelectInfo) => {
     if (source !== "date") {
@@ -38,8 +38,8 @@ export function App() {
     const num = getMonthData(value);
     return num ? (
       <div className="notes-month">
-        <section>{num} </section>
-        <span>Backlog number </span>
+        {/* <section>{num} </section>
+        <span>Backlog number </span> */}
       </div>
     ) : null;
   };
