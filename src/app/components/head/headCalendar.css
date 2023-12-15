@@ -1,13 +1,19 @@
-.ContainerHead {
+.containerHead {
   display: flex;
   justify-content: space-between;
 }
-.ButtonMes {
-  color: gray;
-  cursor: default;
-}
-.ContainerAvatar {
+
+.containerAvatar {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  padding: 1rem 0;
+}
+.titleAmbient {
+  color: #0000ea;
+  font-size: 1.25rem;
+}
+.buttonNewSchedules {
+  width: 10rem;
+  margin-top: 1rem;
 }

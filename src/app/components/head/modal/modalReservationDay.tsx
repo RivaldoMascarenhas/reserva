@@ -18,9 +18,7 @@ export function ModalReservationDay({
   const { currentDate, currentAmbient, setNewSchedule } = useStore();
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
-  const infoModal = `Nova reserva - ${currentAmbient?.title?.toUpperCase()} - ${currentDate.format(
-    "DD/MM/YYYY"
-  )}`;
+  const titleNewScheduleModal = `Nova reserva - ${currentAmbient?.title?.toUpperCase()}`;
 
   const onReset = () => {
     form.resetFields();
@@ -61,7 +59,7 @@ export function ModalReservationDay({
     <Modal
       destroyOnClose
       open={open}
-      title={infoModal}
+      title={titleNewScheduleModal}
       onOk={() => setOpen(false)}
       onCancel={() => {
         setOpen(false);
