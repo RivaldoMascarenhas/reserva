@@ -1,4 +1,5 @@
 "use client";
+import { Ambient } from "@/@types/types";
 import { api } from "@/_lib/axios";
 import { useStore } from "@/zustandStore";
 import { PlusOutlined } from "@ant-design/icons";
@@ -18,14 +19,16 @@ export function Sidebar() {
   const loadingAmbients = useCallback(async () => {
     try {
       setLoading(true);
-      const { data } = await api.get("api/ambients");
+      const { data } = await api.get<Ambient[]>("api/ambients");
       setAmbients(data);
+      data.length === 0
+        ? message.warning("Crie novos Ambients!!", 2)
+        : message.success("Ambientes carregados com sucesso!", 1);
     } catch (error) {
       message.error("Erro ao buscar os ambientes");
       console.log(error);
     } finally {
       setLoading(false);
-      message.success("Ambientes carregados!", 1);
     }
   }, [setAmbients]);
 

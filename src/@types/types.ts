@@ -16,3 +16,17 @@ export interface valuesProps {
   confirmPassword: string;
   agree: boolean;
 }
+export interface Schedules {
+  id: number;
+  title: string;
+  equipment?: string;
+  description?: string;
+  dateEvent: Date;
+  dateMinutesStart: Date;
+  dateMinutesEnd: Date;
+}
+export interface Ambient {
+  id: string;
+  title: string;
+  schedules: Schedules[];
+}

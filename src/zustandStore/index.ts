@@ -1,35 +1,21 @@
+import { Ambient, Schedules } from "@/@types/types";
 import dayjs, { Dayjs } from "dayjs";
 import { create } from "zustand";
 
-export interface Schedules {
-  id: number;
-  title: string;
-  equipment?: string;
-  description?: string;
-  dateEvent: Date;
-  dateMinutesStart: Date;
-  dateMinutesEnd: Date;
-}
-interface ambient {
-  id: string;
-  title: string;
-  schedules: Schedules[];
-}
-
 interface StoreTypes {
   currentDate: Dayjs;
-  ambients: ambient[];
-  currentAmbient: ambient;
-  setCurrentAmbient: (ambient: ambient) => void;
+  ambients: Ambient[];
+  currentAmbient: Ambient;
+  setCurrentAmbient: (ambient: Ambient) => void;
   setCurrentDate: (date?: Dayjs) => void;
-  setUpdateAmbients: (ambient: ambient) => void;
-  setAmbients: (newAmbients: ambient[]) => void;
+  setUpdateAmbients: (ambient: Ambient) => void;
+  setAmbients: (newAmbients: Ambient[]) => void;
   setNewSchedule: (schedule: Schedules) => void;
 }
 
 export const useStore = create<StoreTypes>((set, get) => ({
   ambients: [],
-  currentAmbient: {} as ambient,
+  currentAmbient: {} as Ambient,
   currentDate: dayjs(),
   setCurrentAmbient: (ambient) => set({ currentAmbient: ambient }),
   setCurrentDate: (date) => set({ currentDate: date }),

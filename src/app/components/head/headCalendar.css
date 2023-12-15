@@ -12,8 +12,12 @@
 .titleAmbient {
   color: #0000ea;
   font-size: 1.25rem;
+  font-weight: bold;
 }
 .buttonNewSchedules {
   width: 10rem;
   margin-top: 1rem;
+}
+.buttonNewSchedules:disabled:hover {
+  background: gray !important;
 }

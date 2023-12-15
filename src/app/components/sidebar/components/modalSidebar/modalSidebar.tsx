@@ -35,7 +35,7 @@ export function ModalSidebar({
       message.success("Ambiente criado com sucesso!", 1);
     } catch (error: any) {
       console.error(error);
-      message.error(error.message);
+      message.error(error.response.data);
     }
 
     setLoading(false);

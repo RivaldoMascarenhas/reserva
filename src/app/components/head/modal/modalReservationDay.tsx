@@ -1,9 +1,19 @@
 "use client";
-import { FieldType } from "@/@types/types";
+import { FieldType, Schedules } from "@/@types/types";
 import { api } from "@/_lib/axios";
-import { Schedules, useStore } from "@/zustandStore";
-import { Button, Form, Input, Modal, Space, TimePicker, message } from "antd";
+import { useStore } from "@/zustandStore";
+import {
+  Button,
+  DatePicker,
+  Form,
+  Input,
+  Modal,
+  Space,
+  TimePicker,
+  message,
+} from "antd";
 import TextArea from "antd/es/input/TextArea";
+import dayjs, { Dayjs } from "dayjs";
 import { useState } from "react";
 
 interface ModalReservationDayProps {
@@ -19,6 +29,15 @@ export function ModalReservationDay({
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const titleNewScheduleModal = `Nova reserva - ${currentAmbient?.title?.toUpperCase()}`;
+  const thereIsCurrentDate = Object.keys(currentAmbient).length;
+
+  const disableCalendar = (date: Dayjs): boolean => {
+    if (!thereIsCurrentDate) {
+      return true;
+    } else {
+      return dayjs().isAfter(date) && !date.isToday();
+    }
+  };
 
   const onReset = () => {
     form.resetFields();
@@ -31,7 +50,7 @@ export function ModalReservationDay({
         title: values.title,
         equipment: values.equipment,
         description: values.description,
-        dateEvent: currentDate,
+        dateEvent: values.dateEvent,
         dateMinutesStart: values.time[0],
         dateMinutesEnd: values.time[1],
         ambientsId: currentAmbient?.id,
@@ -101,7 +120,13 @@ export function ModalReservationDay({
         >
           <TextArea rows={4} placeholder="Descrição do evento!" />
         </Form.Item>
-
+        <Form.Item<FieldType>
+          initialValue={dayjs()}
+          name="dateEvent"
+          rules={[{ required: true, message: "Coloque uma data!" }]}
+        >
+          <DatePicker format={"DD/MM/YYYY"} disabledDate={disableCalendar} />
+        </Form.Item>
         <Form.Item<FieldType>
           initialValue={[currentDate, currentDate.add(1, "hour")]}
           name="time"

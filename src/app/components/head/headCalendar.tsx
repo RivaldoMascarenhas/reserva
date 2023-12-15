@@ -24,6 +24,7 @@ export default function HeadCalendar() {
           )}
         </Title>
         <Button
+          disabled={thereIsCurrentDate}
           onClick={() => setOpen(true)}
           type="primary"
           ghost

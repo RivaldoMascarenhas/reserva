@@ -7,6 +7,7 @@ import { SelectInfo } from "antd/lib/calendar/generateCalendar";
 import locale from "antd/locale/pt_BR";
 import dayjs, { Dayjs } from "dayjs";
 import isToday from "dayjs/plugin/isToday";
+import { ModalDescriptionSchedule } from "./modal/modalDescriptionSchedule";
 
 dayjs.extend(isToday);
 
@@ -64,11 +65,14 @@ export function App() {
   };
 
   return (
-    <Calendar
-      cellRender={cellRender}
-      locale={locale.Calendar as PickerLocale}
-      onSelect={onSelectDate}
-      disabledDate={disableCalendar}
-    />
+    <>
+      <Calendar
+        cellRender={cellRender}
+        locale={locale.Calendar as PickerLocale}
+        onSelect={onSelectDate}
+        disabledDate={disableCalendar}
+      />
+      <ModalDescriptionSchedule />
+    </>
   );
 }
